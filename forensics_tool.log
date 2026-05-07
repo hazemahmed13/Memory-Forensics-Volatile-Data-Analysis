@@ -1,0 +1,118 @@
+2026-05-07 19:18:43,203 [WARNING] plugin=linux.banner dump=D:/MemoryDump_Lab1.raw rc=2 stderr=usage: vol.EXE [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.EXE: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-07 19:18:44,074 [WARNING] plugin=linux.bash dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Bash.kernel.layer_name', 'plugins.Bash.kernel.symbol_table_name']
+2026-05-07 19:18:44,785 [WARNING] plugin=mac.banner dump=D:/MemoryDump_Lab1.raw rc=2 stderr=usage: vol.EXE [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.EXE: error: argument PLUGIN: invalid choice mac.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linux.
+2026-05-07 19:18:45,648 [WARNING] plugin=mac.ifconfig dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-07 19:20:58,108 [WARNING] plugin=v2:threads dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Volatility Foundation Volatility Framework 2.6.1
+ERROR   : volatility.debug    : You must specify something to do (try -h)
+2026-05-07 19:21:07,329 [WARNING] plugin=v2:strings dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Volatility Foundation Volatility Framework 2.6.1
+ERROR   : volatility.debug    : Strings file not found
+2026-05-07 19:24:44,973 [WARNING] plugin=linux.banner dump=D:/MemoryDump_Lab1.raw rc=2 stderr=usage: vol.EXE [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.EXE: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-07 19:24:45,848 [WARNING] plugin=linux.bash dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Bash.kernel.layer_name', 'plugins.Bash.kernel.symbol_table_name']
+2026-05-07 19:24:46,532 [WARNING] plugin=mac.banner dump=D:/MemoryDump_Lab1.raw rc=2 stderr=usage: vol.EXE [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.EXE: error: argument PLUGIN: invalid choice mac.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linux.
+2026-05-07 19:24:47,387 [WARNING] plugin=mac.ifconfig dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-07 19:25:25,768 [WARNING] plugin=v2:threads dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Volatility Foundation Volatility Framework 2.6.1
+ERROR   : volatility.debug    : You must specify something to do (try -h)
+2026-05-07 19:25:33,944 [WARNING] plugin=v2:strings dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Volatility Foundation Volatility Framework 2.6.1
+ERROR   : volatility.debug    : Strings file not found
+2026-05-07 19:27:02,011 [WARNING] plugin=linux.banner dump=D:/MemoryDump_Lab1.raw rc=2 stderr=usage: vol.EXE [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.EXE: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-07 19:27:02,921 [WARNING] plugin=linux.bash dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Bash.kernel.layer_name', 'plugins.Bash.kernel.symbol_table_name']
+2026-05-07 19:27:03,612 [WARNING] plugin=mac.banner dump=D:/MemoryDump_Lab1.raw rc=2 stderr=usage: vol.EXE [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.EXE: error: argument PLUGIN: invalid choice mac.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linux.
+2026-05-07 19:27:04,473 [WARNING] plugin=mac.ifconfig dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-07 19:27:45,176 [WARNING] plugin=windows.strings dump=D:/MemoryDump_Lab1.raw rc=2 stderr=usage: vol.EXE windows.strings.Strings [-h] [--pid [PID ...]] --strings-file
+                                       STRINGS_FILE
+vol.EXE windows.strings.Strings: error: the following arguments are required: --strings-file
+2026-05-07 19:31:30,939 [WARNING] plugin=linux.banner dump=D:/MemoryDump_Lab1.raw rc=2 stderr=usage: vol.EXE [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.EXE: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-07 19:31:31,823 [WARNING] plugin=linux.bash dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Bash.kernel.layer_name', 'plugins.Bash.kernel.symbol_table_name']
+2026-05-07 19:31:32,550 [WARNING] plugin=mac.banner dump=D:/MemoryDump_Lab1.raw rc=2 stderr=usage: vol.EXE [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.EXE: error: argument PLUGIN: invalid choice mac.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linux.
+2026-05-07 19:31:33,423 [WARNING] plugin=mac.ifconfig dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-07 19:32:09,481 [WARNING] plugin=windows.strings dump=D:/MemoryDump_Lab1.raw rc=2 stderr=usage: vol.EXE windows.strings.Strings [-h] [--pid [PID ...]] --strings-file
+                                       STRINGS_FILE
+vol.EXE windows.strings.Strings: error: the following arguments are required: --strings-file
