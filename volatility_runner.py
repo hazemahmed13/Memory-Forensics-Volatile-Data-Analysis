@@ -5,6 +5,7 @@ import subprocess
 import sys
 import json
 import platform
+import threading
 from functools import lru_cache
 
 from forensics_logging import log_volatility
@@ -16,6 +17,7 @@ _VOL2_SCRIPT = ""  # path to vol.py (Volatility 2)
 _VOL2_PYTHON = ""  # path to python.exe for Vol2 (usually Python 2.7)
 _VOL3_SYMBOL_DIRS = ""
 _LAST_LINUX_RECOVERY = {}
+_RUNTIME_LOG_SINK = None
 
 # Volatility 2 plugins that typically run without --profile
 _VOL2_PLUGINS_NO_PROFILE = frozenset({"imageinfo", "kdbgscan", "kpcrscan"})
@@ -120,6 +122,52 @@ def get_volatility_config():
         "vol2_python": _VOL2_PYTHON,
         "vol3_symbol_dirs": _VOL3_SYMBOL_DIRS,
     }
+
+
+def set_runtime_log_sink(sink):
+    """Set callable sink(line: str) for live command output."""
+    global _RUNTIME_LOG_SINK
+    _RUNTIME_LOG_SINK = sink if callable(sink) else None
+
+
+def _emit_runtime_log(message: str):
+    if not message:
+        return
+    if _RUNTIME_LOG_SINK:
+        try:
+            _RUNTIME_LOG_SINK(str(message))
+        except Exception:
+            pass
+
+
+def _run_streaming_command(cmd, label):
+    stdout_lines = []
+    stderr_lines = []
+    _emit_runtime_log(f"$ {' '.join(cmd)}")
+    process = subprocess.Popen(
+        cmd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        bufsize=1,
+        universal_newlines=True,
+    )
+
+    def reader(stream, bucket, prefix):
+        for line in iter(stream.readline, ""):
+            clean = line.rstrip("\n")
+            bucket.append(clean)
+            _emit_runtime_log(f"[{label}][{prefix}] {clean}")
+        stream.close()
+
+    t_out = threading.Thread(target=reader, args=(process.stdout, stdout_lines, "stdout"), daemon=True)
+    t_err = threading.Thread(target=reader, args=(process.stderr, stderr_lines, "stderr"), daemon=True)
+    t_out.start()
+    t_err.start()
+    process.wait()
+    t_out.join()
+    t_err.join()
+    return process.returncode, "\n".join(stdout_lines).strip(), "\n".join(stderr_lines).strip()
 
 
 def _vol3_command():
@@ -347,16 +395,14 @@ def _run_volatility3(plugin, memory_file, extra_args):
         if not vol_cmd:
             return "[runner error] Volatility 3 executable not found. Install volatility3 or add `vol` to PATH."
         cmd = vol_cmd + _vol3_symbol_dir_args() + ["-f", memory_file, plugin] + list(extra_args)
-        result = subprocess.run(cmd, capture_output=True, text=True)
-
-        if result.returncode != 0 and result.stderr.strip():
-            err = result.stderr.strip()
-            log_volatility(plugin, memory_file, f"rc={result.returncode} stderr={err[:800]}")
+        rc, stdout, stderr = _run_streaming_command(cmd, "vol3")
+        if rc != 0 and stderr:
+            err = stderr
+            log_volatility(plugin, memory_file, f"rc={rc} stderr={err[:800]}")
             return f"[volatility error] {err}"
-
-        output = result.stdout.strip()
-        if not output and result.stderr.strip():
-            warn = result.stderr.strip()
+        output = stdout
+        if not output and stderr:
+            warn = stderr
             log_volatility(plugin, memory_file, f"empty stdout stderr={warn[:800]}")
             return f"[volatility warning] {warn}"
 
@@ -391,6 +437,8 @@ def _resolved_symbol_dirs():
     project_defaults = [
         os.path.abspath(os.path.join(os.getcwd(), "symbols")),
         os.path.abspath(os.path.join(os.getcwd(), "symbols", "linux")),
+        os.path.abspath(os.path.join(os.getcwd(), "volatility3", "symbols")),
+        os.path.abspath(os.path.join(os.getcwd(), "volatility3", "symbols", "linux")),
     ]
     for d in project_defaults:
         # Bootstrap default directories so first-time users do not fail on path existence.
@@ -431,7 +479,8 @@ def _linux_symbol_match_exists(kernel_version: str, symbol_dirs):
     for symbol_dir in symbol_dirs:
         try:
             for name in os.listdir(symbol_dir):
-                if not name.lower().endswith(".json"):
+                nlow = name.lower()
+                if not (nlow.endswith(".json") or nlow.endswith(".json.xz")):
                     continue
                 if expected and expected in _normalize_kernel_token(name):
                     return True
@@ -445,7 +494,8 @@ def _list_symbol_jsons(symbol_dirs):
     for symbol_dir in symbol_dirs:
         try:
             for name in os.listdir(symbol_dir):
-                if name.lower().endswith(".json"):
+                nlow = name.lower()
+                if nlow.endswith(".json") or nlow.endswith(".json.xz"):
                     files.append(os.path.join(symbol_dir, name))
         except Exception:
             continue
@@ -713,18 +763,12 @@ def _validate_linux_context(memory_file: str) -> str:
             "ISF must be generated from matching vmlinux using dwarf2json."
         )
 
-    if kernel_version and not _linux_symbol_match_exists(kernel_version, symbol_dirs):
+    no_filename_match = bool(kernel_version and not _linux_symbol_match_exists(kernel_version, symbol_dirs))
+    if no_filename_match:
         if not autogen_attempted:
             recovery = _auto_generate_linux_isf(kernel_version, symbol_dirs)
             autogen_attempted = True
             _LAST_LINUX_RECOVERY[memory_file] = recovery
-        if not (recovery.get("success") and _linux_symbol_match_exists(kernel_version, symbol_dirs)):
-            joined = ", ".join(symbol_dirs)
-            return (
-                "[volatility error] Linux memory detected, but ISF does not match dump kernel version. "
-                f"Detected kernel: {kernel_version}. Checked directories: {joined}. "
-                "Provide matching vmlinux and regenerate ISF with dwarf2json."
-            )
 
     # Validate matched ISF content before context probe.
     matched = []
@@ -754,6 +798,14 @@ def _validate_linux_context(memory_file: str) -> str:
             kernel_probe = _run_volatility3("linux.pslist.PsList", memory_file, [])
     if _is_runner_error(kernel_probe):
         joined = ", ".join(symbol_dirs)
+        if no_filename_match:
+            return (
+                "[volatility error] Linux memory detected, but symbol filename likely does not match dump kernel version. "
+                f"Detected kernel: {kernel_version or 'unknown'}. "
+                "Use a symbol filename containing the kernel token (for example, "
+                "'6.19.14+kali-amd64.json.xz') or regenerate ISF and retry. "
+                f"Checked directories: {joined}."
+            )
         return (
             "[volatility error] Linux memory detected, but kernel context initialization failed "
             "(kernel.layer_name / kernel.symbol_table_name). "
@@ -1173,21 +1225,19 @@ def _run_volatility2(plugin, memory_file, extra_args, os_type="windows"):
         cmd.extend(list(extra_args))
         cmd.append(v2_plugin)
 
-        result = subprocess.run(cmd, capture_output=True, text=True)
-
-        if result.returncode != 0 and result.stderr.strip():
-            err = result.stderr.strip()
-            log_volatility(f"v2:{v2_plugin}", memory_file, f"rc={result.returncode} stderr={err[:800]}")
+        rc, stdout, stderr = _run_streaming_command(cmd, "vol2")
+        if rc != 0 and stderr:
+            err = stderr
+            log_volatility(f"v2:{v2_plugin}", memory_file, f"rc={rc} stderr={err[:800]}")
             if "SyntaxError" in err and ("print" in err or "Missing parentheses" in err):
                 err += (
                     "\n\n[hint] Volatility 2’s vol.py is Python 2 code. Point “Python for Vol 2” to "
                     "python.exe from Python 2.7 (or set VOLATILITY2_PYTHON), not Python 3."
                 )
             return f"[volatility error] {err}"
-
-        output = result.stdout.strip()
-        if not output and result.stderr.strip():
-            warn = result.stderr.strip()
+        output = stdout
+        if not output and stderr:
+            warn = stderr
             log_volatility(f"v2:{v2_plugin}", memory_file, f"empty stdout stderr={warn[:800]}")
             return f"[volatility warning] {warn}"
 

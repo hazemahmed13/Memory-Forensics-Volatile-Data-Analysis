@@ -1238,3 +1238,640 @@ Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', '
 Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
 2026-05-08 21:26:48,171 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
 Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-09 14:29:43,143 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:   23.33		Scanning FileLayer using PageMapScanner
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 14:29:47,062 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:   23.33		Scanning FileLayer using PageMapScanner
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 14:30:33,101 [WARNING] plugin=mac.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 14:30:33,904 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-09 14:35:45,850 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:   23.33		Scanning FileLayer using PageMapScanner
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 14:35:49,652 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:   23.33		Scanning FileLayer using PageMapScanner
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 14:36:36,473 [WARNING] plugin=mac.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 14:36:37,326 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-09 14:41:43,226 [WARNING] plugin=banners.Banners dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=3221225786 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:   23.33		Scanning FileLayer using PageMapScanner
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+2026-05-09 14:51:50,298 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:   23.33		Scanning FileLayer using PageMapScanner
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 14:51:54,353 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:   23.33		Scanning FileLayer using PageMapScanner
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 14:52:39,863 [WARNING] plugin=mac.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 14:52:40,693 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-09 14:58:10,396 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:   23.33		Scanning FileLayer using PageMapScanner
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 14:58:14,208 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:   23.33		Scanning FileLayer using PageMapScanner
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 14:58:59,640 [WARNING] plugin=mac.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 14:59:00,461 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-09 15:21:39,321 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:   23.33		Scanning FileLayer using PageMapScanner
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 15:21:43,209 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:   23.33		Scanning FileLayer using PageMapScanner
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 15:22:30,412 [WARNING] plugin=mac.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 15:22:31,227 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-09 16:07:47,615 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 2 files...
+
+Progress:   50.00		Updating caches for 2 files...
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:   23.33		Scanning FileLayer using PageMapScanner
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 16:07:51,532 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 2 files...
+
+Progress:   50.00		Updating caches for 2 files...
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:   23.33		Scanning FileLayer using PageMapScanner
+
+Progress:    0.00		Scanning FileLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 16:08:13,861 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:08:13,861 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:08:35,919 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:08:35,919 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:08:36,744 [WARNING] plugin=mac.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 2 files...
+
+Progress:   50.00		Updating caches for 2 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 16:08:37,572 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/Linux Dump/memdump.raw rc=1 stderr=Progress:    0.00		Updating caches for 2 files...
+
+Progress:   50.00		Updating caches for 2 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-09 16:10:54,807 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:10:54,807 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:10:54,807 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:10:54,808 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:11:17,163 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:11:17,163 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:11:17,163 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:11:17,163 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:11:39,422 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:11:39,423 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:11:39,423 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:11:39,423 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:12:01,559 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:12:01,559 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:12:01,559 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:12:01,560 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:12:23,686 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:12:23,686 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:12:23,687 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:12:23,687 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:12:45,849 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:12:45,849 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:12:45,849 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:12:45,849 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:13:08,137 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:13:08,139 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:13:08,139 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:13:08,139 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:13:30,523 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:13:30,523 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:13:30,523 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:13:30,523 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:13:52,795 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:13:52,795 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 16:13:52,796 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json reason=isf_file_empty
+2026-05-09 16:13:52,796 [WARNING] plugin=linux.isf.validate dump=C:\Users\hazem\OneDrive\Desktop\Digital Project\volatility3\symbols\linux\6.19.14+kali-amd64.json.xz reason=isf_json_invalid
+2026-05-09 20:22:09,273 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:   23.33		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished               
+
+Progress:  100.00		PDB scanning finished                    
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 20:22:13,233 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:   23.33		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished               
+
+Progress:  100.00		PDB scanning finished                    
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 20:22:43,865 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:23:06,893 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:23:07,858 [WARNING] plugin=mac.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:23:08,768 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-09 20:23:48,768 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:23:49,774 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:24:13,917 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:24:14,879 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:24:38,759 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:24:39,728 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:25:03,592 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:25:04,543 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:31:37,713 [WARNING] plugin=linux.pslist.PsList dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:32:05,804 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:   23.33		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished               
+
+Progress:  100.00		PDB scanning finished                    
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 20:32:10,066 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:   23.33		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished               
+
+Progress:  100.00		PDB scanning finished                    
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 20:32:35,440 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:32:36,508 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:33:01,594 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:33:02,546 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:33:03,509 [WARNING] plugin=mac.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:33:04,594 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-09 20:35:27,262 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:35:28,171 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:35:51,778 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:35:52,697 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:36:16,547 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:36:17,442 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:36:40,870 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:36:41,789 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:38:41,717 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:   23.33		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished               
+
+Progress:  100.00		PDB scanning finished                    
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 20:38:45,749 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:   23.33		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished               
+
+Progress:  100.00		PDB scanning finished                    
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 20:39:09,447 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:39:09,486 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-09 20:39:10,436 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:39:34,907 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:39:34,934 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-09 20:39:35,869 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:39:36,930 [WARNING] plugin=mac.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 20:39:37,921 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']

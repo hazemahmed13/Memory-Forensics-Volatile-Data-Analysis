@@ -1,0 +1,11 @@
+{
+  "engine": "3",
+  "vol2_profile": "",
+  "vol2_script": "",
+  "vol2_python": "",
+  "vmlinux_path": "C:/Users/hazem/OneDrive/Desktop/Ubuntu22.04.6.5.0-41-generic.json",
+  "dwarf2json_path": "C:/Users/hazem/OneDrive/Desktop/dwarf2json.exe",
+  "wsl_path": "",
+  "report_dir": "C:/Users/hazem/OneDrive/Desktop",
+  "last_os": "linux"
+}

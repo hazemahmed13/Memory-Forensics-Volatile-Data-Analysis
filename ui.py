@@ -13,8 +13,16 @@ from PyQt5.QtWidgets import (
     QDialog,
     QDialogButtonBox,
     QFrame,
+    QTableWidget,
+    QTableWidgetItem,
+    QAbstractItemView,
+    QHeaderView,
+    QProgressBar,
+    QSplitter,
+    QScrollArea,
+    QSizePolicy,
 )
-from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtCore import QThread, pyqtSignal, Qt
 from PyQt5.QtGui import QPalette, QColor, QFont
 
 from process_analysis import (
@@ -39,6 +47,7 @@ from volatility_runner import (
     get_resolved_vol2_script,
     get_volatility_config,
     run_volatility,
+    set_runtime_log_sink,
     set_volatility_config,
     volatility_any_backend_ok,
     volatility_engine_status,
@@ -46,10 +55,68 @@ from volatility_runner import (
 from forensics_logging import setup_forensics_logging
 import json
 import os
+import lzma
+import shutil
+import platform
+
+
+class ResultsTableWidget(QWidget):
+    def __init__(self, title):
+        super().__init__()
+        self.title = title
+        self.rows = []
+        self.columns = []
+        self.filter_input = QLineEdit()
+        self.filter_input.setPlaceholderText(f"Filter {title}...")
+        self.table = QTableWidget()
+        self.table.setSortingEnabled(True)
+        self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.filter_input.textChanged.connect(self.apply_filter)
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.filter_input)
+        layout.addWidget(self.table)
+        self.setLayout(layout)
+
+    def set_rows(self, rows):
+        self.rows = list(rows or [])
+        cols = []
+        for row in self.rows:
+            for key in row.keys():
+                if key not in cols:
+                    cols.append(key)
+        self.columns = cols if cols else ["Result"]
+        self.apply_filter()
+
+    def set_text_result(self, text):
+        self.set_rows([{"Result": line} for line in str(text or "").splitlines() if line.strip()] or [{"Result": str(text or "")}])
+
+    def apply_filter(self):
+        term = self.filter_input.text().strip().lower()
+        visible = []
+        for row in self.rows:
+            if not term:
+                visible.append(row)
+                continue
+            if any(term in str(v).lower() for v in row.values()):
+                visible.append(row)
+        self._render_rows(visible)
+
+    def _render_rows(self, rows):
+        self.table.setRowCount(len(rows))
+        self.table.setColumnCount(len(self.columns))
+        self.table.setHorizontalHeaderLabels(self.columns)
+        for r, row in enumerate(rows):
+            for c, col in enumerate(self.columns):
+                self.table.setItem(r, c, QTableWidgetItem(str(row.get(col, ""))))
 
 
 class WorkerThread(QThread):
     progress = pyqtSignal(str)
+    progress_percent = pyqtSignal(int)
+    log = pyqtSignal(str)
     step_done = pyqtSignal(str, str, object)
     all_done = pyqtSignal()
 
@@ -66,7 +133,18 @@ class WorkerThread(QThread):
         os_type = self.os_type
         try:
             if task_name == "process":
-                return get_processes(self.memory_file, os_type=os_type), None
+                process_text = get_processes(self.memory_file, os_type=os_type)
+                process_records = get_process_records(self.memory_file, os_type=os_type)
+                process_tree_records = get_process_tree_records(self.memory_file, os_type=os_type)
+                thread_records = get_thread_records(self.memory_file, os_type=os_type)
+                dll_records = get_dll_records(self.memory_file, os_type=os_type)
+                payload = {
+                    "process_records": process_records,
+                    "process_tree_records": process_tree_records,
+                    "thread_records": thread_records,
+                    "dll_records": dll_records,
+                }
+                return process_text, payload
 
             if task_name == "injection":
                 details = detect_injection_details(self.memory_file, os_type=os_type)
@@ -96,7 +174,8 @@ class WorkerThread(QThread):
             if task_name == "network":
                 data = get_connections(self.memory_file, os_type=os_type)
                 text = "\n".join(data[:50])
-                return text, None
+                connection_records = get_connection_records(self.memory_file, os_type=os_type)
+                return text, {"connection_records": connection_records}
 
             if task_name == "secrets":
                 raw = detect_keys_and_credentials(self.memory_file, os_type=os_type)
@@ -116,14 +195,23 @@ class WorkerThread(QThread):
 
     def run(self):
         if self.task == "full":
-            for step in ["process", "injection", "network", "secrets", "yara"]:
+            steps = ["process", "injection", "network", "secrets", "yara"]
+            set_runtime_log_sink(self.log.emit)
+            for idx, step in enumerate(steps, start=1):
                 self.progress.emit(f"Running {step}… (full analysis)")
+                self.progress_percent.emit(int((idx - 1) * 100 / len(steps)))
                 result, extra = self._run_one(step)
                 self.step_done.emit(step, result, extra)
+            self.progress_percent.emit(100)
+            set_runtime_log_sink(None)
         else:
+            set_runtime_log_sink(self.log.emit)
             self.progress.emit(f"Running {self.task}…")
+            self.progress_percent.emit(10)
             result, extra = self._run_one(self.task)
             self.step_done.emit(self.task, result, extra)
+            self.progress_percent.emit(100)
+            set_runtime_log_sink(None)
         self.all_done.emit()
 
 
@@ -133,7 +221,7 @@ class MemoryForensicsApp(QWidget):
         setup_forensics_logging()
 
         self.setWindowTitle("Memory Forensics Tool")
-        self.setGeometry(200, 200, 900, 600)
+        self.setGeometry(200, 200, 1100, 820)
         self._apply_theme()
 
         self.memory_file = None
@@ -153,25 +241,16 @@ class MemoryForensicsApp(QWidget):
         self.status = QLabel("Status: Idle")
         self.report_folder_label = QLabel("Reports folder: next to memory dump")
         self.health_label = QLabel("Backend health: checking…")
+        self.linux_symbol_banner = QLabel("")
+        self.linux_symbol_banner.setVisible(False)
 
         self.tabs = QTabWidget()
-        self.process_tab = QTextEdit()
-        self.injection_tab = QTextEdit()
-        self.network_tab = QTextEdit()
-        self.secrets_tab = QTextEdit()
-        self.process_deep_tab = QTextEdit()
-        self.yara_tab = QTextEdit()
-        for tab in [
-            self.process_tab,
-            self.process_deep_tab,
-            self.injection_tab,
-            self.network_tab,
-            self.secrets_tab,
-            self.yara_tab,
-        ]:
-            tab.setReadOnly(True)
-            tab.setProperty("resultsPanel", "true")
-            self._configure_results_panel(tab)
+        self.process_tab = ResultsTableWidget("Processes")
+        self.injection_tab = ResultsTableWidget("Injection")
+        self.network_tab = ResultsTableWidget("Network")
+        self.secrets_tab = ResultsTableWidget("Keys/Creds")
+        self.process_deep_tab = ResultsTableWidget("Process Deep Dive")
+        self.yara_tab = ResultsTableWidget("YARA")
 
         self.tabs.addTab(self.process_tab, "Processes")
         self.tabs.addTab(self.process_deep_tab, "Process Deep Dive")
@@ -185,11 +264,15 @@ class MemoryForensicsApp(QWidget):
         self.btn_report_folder = QPushButton("Set report folder…")
         self.btn_health = QPushButton("Refresh Backend Health")
         self.btn_generate_symbols = QPushButton("Generate Linux Symbols")
+        self.btn_load_symbol_file = QPushButton("Load Symbol File (.json/.json.xz)")
+        self.btn_load_symbol_file.setVisible(False)
         self.btn_check_env = QPushButton("Check Environment Compatibility")
         self.os_selector = QComboBox()
-        self.os_selector.addItems(["windows", "linux", "mac"])
-        self.os_selector.setEnabled(False)
-        self.os_selector.setToolTip("OS is detected automatically from memory image.")
+        self.os_selector.addItem("windows", "windows")
+        self.os_selector.addItem("linux", "linux")
+        self.os_selector.addItem("macos", "mac")
+        self.os_selector.setEnabled(True)
+        self.os_selector.setToolTip("OS is auto-detected, but you can override.")
 
         self.engine_combo = QComboBox()
         self.engine_combo.addItem("Volatility 3 (vol)", "3")
@@ -209,8 +292,12 @@ class MemoryForensicsApp(QWidget):
         self.vmlinux_path_edit = QLineEdit()
         self.vmlinux_path_edit.setPlaceholderText("Linux vmlinux path (optional, for symbol generation)")
         self.btn_browse_vmlinux = QPushButton("Browse vmlinux…")
+        self.dwarf2json_path_edit = QLineEdit()
+        self.dwarf2json_path_edit.setPlaceholderText("Optional dwarf2json path")
+        self.btn_browse_dwarf2json = QPushButton("Browse dwarf2json…")
         self.wsl_path_edit = QLineEdit()
         self.wsl_path_edit.setPlaceholderText("Optional WSL executable path (wsl.exe)")
+        self.btn_browse_wsl = QPushButton("Browse wsl.exe…")
         self.btn_vol2_imageinfo = QPushButton("Run imageinfo (Vol 2)…")
         self.btn_vol2_imageinfo.setToolTip(
             "Runs imageinfo without a profile so you can copy a Suggested Profile (e.g. Win7SP1x64)."
@@ -221,6 +308,8 @@ class MemoryForensicsApp(QWidget):
             "Leave profile empty only for imageinfo; then set profile before pslist / full analysis."
         )
         self.vol2_hint.setWordWrap(True)
+        self.vol2_hint.setMinimumHeight(48)
+        self.vol2_hint.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.MinimumExpanding)
 
         self.btn_full = QPushButton("Run full analysis (all steps)")
         self.btn_process = QPushButton("Run Process Analysis")
@@ -228,6 +317,22 @@ class MemoryForensicsApp(QWidget):
         self.btn_network = QPushButton("Network Scan")
         self.btn_secrets = QPushButton("Detect Keys/Credentials")
         self.btn_yara = QPushButton("YARA Scan")
+        self.progress_bar = QProgressBar()
+        self.progress_bar.setRange(0, 100)
+        self.progress_bar.setValue(0)
+        self.log_panel = QTextEdit()
+        self.log_panel.setReadOnly(True)
+        self.log_panel.setMinimumHeight(260)
+        self.log_panel.setObjectName("liveLogConsole")
+        self.log_panel.setProperty("logConsole", "true")
+        self.log_panel.setLineWrapMode(QTextEdit.NoWrap)
+        self.log_panel.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.log_panel.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.log_panel.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self._configure_live_log_console(self.log_panel)
+        self.btn_clear_log = QPushButton("Clear log")
+        self.btn_clear_log.setProperty("variant", "secondary")
+        self.btn_clear_log.clicked.connect(self._clear_live_log)
 
         primary_buttons = [
             self.btn_load,
@@ -244,10 +349,13 @@ class MemoryForensicsApp(QWidget):
             self.btn_report_folder,
             self.btn_health,
             self.btn_generate_symbols,
+            self.btn_load_symbol_file,
             self.btn_check_env,
             self.btn_browse_vol2,
             self.btn_browse_vol2_python,
             self.btn_browse_vmlinux,
+            self.btn_browse_dwarf2json,
+            self.btn_browse_wsl,
         ]
         for button in primary_buttons:
             button.setProperty("variant", "primary")
@@ -275,17 +383,32 @@ class MemoryForensicsApp(QWidget):
             self.btn_vol2_imageinfo,
             self.vmlinux_path_edit,
             self.btn_browse_vmlinux,
+            self.dwarf2json_path_edit,
+            self.btn_browse_dwarf2json,
             self.wsl_path_edit,
+            self.btn_browse_wsl,
         ]
 
-        layout = QVBoxLayout()
-        layout.setContentsMargins(18, 16, 18, 16)
-        layout.setSpacing(10)
+        # Scrollable upper region: form + results need more height than many windows provide;
+        # without this, QSplitter squeezes widgets and they overlap (white clipped lines).
+        upper_scroll = QScrollArea()
+        upper_scroll.setWidgetResizable(True)
+        upper_scroll.setFrameShape(QFrame.NoFrame)
+        upper_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        upper_scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        upper_scroll.setMinimumHeight(380)
+        upper_scroll.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
-        layout.addWidget(self.label)
-        layout.addWidget(self.status)
-        layout.addWidget(self.report_folder_label)
-        layout.addWidget(self.health_label)
+        upper_content = QWidget()
+        upper_layout = QVBoxLayout(upper_content)
+        upper_layout.setContentsMargins(2, 2, 2, 2)
+        upper_layout.setSpacing(10)
+
+        upper_layout.addWidget(self.label)
+        upper_layout.addWidget(self.status)
+        upper_layout.addWidget(self.report_folder_label)
+        upper_layout.addWidget(self.health_label)
+        upper_layout.addWidget(self.linux_symbol_banner)
 
         action_row = QHBoxLayout()
         action_row.setSpacing(8)
@@ -294,71 +417,120 @@ class MemoryForensicsApp(QWidget):
         action_row.addWidget(self.btn_export)
         action_row.addWidget(self.btn_health)
         action_row.addWidget(self.btn_generate_symbols)
+        action_row.addWidget(self.btn_load_symbol_file)
         action_row.addWidget(self.btn_check_env)
         action_row.addStretch()
-        layout.addLayout(action_row)
+        upper_layout.addLayout(action_row)
 
         config_sep = QFrame()
         config_sep.setFrameShape(QFrame.HLine)
-        layout.addWidget(config_sep)
+        config_sep.setFixedHeight(1)
+        config_sep.setStyleSheet("background-color: #334155; border: none; margin: 0; padding: 0;")
+        upper_layout.addWidget(config_sep)
 
-        layout.addWidget(QLabel("Target OS (auto-detected)"))
-        layout.addWidget(self.os_selector)
-        layout.addWidget(QLabel("Volatility engine"))
-        layout.addWidget(self.engine_combo)
-        layout.addWidget(QLabel("Volatility 2 — memory profile"))
-        layout.addWidget(self.vol2_profile_edit)
+        upper_layout.addWidget(QLabel("Target OS (auto-detected)"))
+        upper_layout.addWidget(self.os_selector)
+        upper_layout.addWidget(QLabel("Volatility engine"))
+        upper_layout.addWidget(self.engine_combo)
+        upper_layout.addWidget(QLabel("Volatility 2 — memory profile"))
+        upper_layout.addWidget(self.vol2_profile_edit)
         row_vol2 = QHBoxLayout()
         row_vol2.addWidget(self.vol2_script_edit)
         row_vol2.addWidget(self.btn_browse_vol2)
-        layout.addLayout(row_vol2)
-        layout.addWidget(QLabel("Python interpreter for Vol 2 (Python 2.7 recommended)"))
+        upper_layout.addLayout(row_vol2)
+        upper_layout.addWidget(QLabel("Python interpreter for Vol 2 (Python 2.7 recommended)"))
         row_py2 = QHBoxLayout()
         row_py2.addWidget(self.vol2_python_edit)
         row_py2.addWidget(self.btn_browse_vol2_python)
-        layout.addLayout(row_py2)
-        layout.addWidget(self.btn_vol2_imageinfo)
-        layout.addWidget(self.vol2_hint)
-        layout.addWidget(QLabel("Linux vmlinux path (for symbol generation)"))
+        upper_layout.addLayout(row_py2)
+        upper_layout.addWidget(self.btn_vol2_imageinfo)
+        upper_layout.addWidget(self.vol2_hint)
+        upper_layout.addWidget(QLabel("Linux vmlinux path (for symbol generation)"))
         row_vm = QHBoxLayout()
         row_vm.addWidget(self.vmlinux_path_edit)
         row_vm.addWidget(self.btn_browse_vmlinux)
-        layout.addLayout(row_vm)
-        layout.addWidget(QLabel("WSL executable path (optional)"))
-        layout.addWidget(self.wsl_path_edit)
+        upper_layout.addLayout(row_vm)
+        upper_layout.addWidget(QLabel("dwarf2json path (optional)"))
+        row_dwarf = QHBoxLayout()
+        row_dwarf.addWidget(self.dwarf2json_path_edit)
+        row_dwarf.addWidget(self.btn_browse_dwarf2json)
+        upper_layout.addLayout(row_dwarf)
+        upper_layout.addWidget(QLabel("WSL executable path (optional)"))
+        row_wsl = QHBoxLayout()
+        row_wsl.addWidget(self.wsl_path_edit)
+        row_wsl.addWidget(self.btn_browse_wsl)
+        upper_layout.addLayout(row_wsl)
 
         analyze_sep = QFrame()
         analyze_sep.setFrameShape(QFrame.HLine)
-        layout.addWidget(analyze_sep)
+        analyze_sep.setFixedHeight(1)
+        analyze_sep.setStyleSheet("background-color: #334155; border: none; margin: 0; padding: 0;")
+        upper_layout.addWidget(analyze_sep)
 
-        layout.addWidget(QLabel("Analysis"))
+        upper_layout.addWidget(QLabel("Analysis"))
         analyze_row_1 = QHBoxLayout()
         analyze_row_1.setSpacing(8)
         analyze_row_1.addWidget(self.btn_full)
         analyze_row_1.addWidget(self.btn_process)
         analyze_row_1.addWidget(self.btn_injection)
-        layout.addLayout(analyze_row_1)
+        upper_layout.addLayout(analyze_row_1)
 
         analyze_row_2 = QHBoxLayout()
         analyze_row_2.setSpacing(8)
         analyze_row_2.addWidget(self.btn_network)
         analyze_row_2.addWidget(self.btn_secrets)
         analyze_row_2.addWidget(self.btn_yara)
-        layout.addLayout(analyze_row_2)
+        upper_layout.addLayout(analyze_row_2)
 
         results_sep = QFrame()
         results_sep.setFrameShape(QFrame.HLine)
-        layout.addWidget(results_sep)
-        layout.addWidget(QLabel("Results"))
-        layout.addWidget(self.tabs)
+        results_sep.setFixedHeight(1)
+        results_sep.setStyleSheet("background-color: #334155; border: none; margin: 0; padding: 0;")
+        upper_layout.addWidget(results_sep)
+        upper_layout.addWidget(QLabel("Results"))
+        self.tabs.setMinimumHeight(220)
+        upper_layout.addWidget(self.tabs, 1)
 
-        self.setLayout(layout)
+        upper_layout.addWidget(QLabel("Progress"))
+        self.progress_bar.setMinimumHeight(22)
+        upper_layout.addWidget(self.progress_bar)
+
+        upper_scroll.setWidget(upper_content)
+
+        log_section = QWidget()
+        log_section_layout = QVBoxLayout(log_section)
+        log_section_layout.setContentsMargins(0, 0, 0, 0)
+        log_section_layout.setSpacing(6)
+        log_header_row = QHBoxLayout()
+        log_header_row.addWidget(QLabel("Live Log"))
+        log_header_row.addStretch()
+        log_header_row.addWidget(self.btn_clear_log)
+        log_section_layout.addLayout(log_header_row)
+        log_section_layout.addWidget(self.log_panel, 1)
+        log_section.setMinimumHeight(200)
+
+        splitter = QSplitter(Qt.Vertical)
+        splitter.setChildrenCollapsible(False)
+        splitter.addWidget(upper_scroll)
+        splitter.addWidget(log_section)
+        # Prefer keeping the controls usable: upper pane gets more resize slack than log.
+        splitter.setStretchFactor(0, 3)
+        splitter.setStretchFactor(1, 1)
+        splitter.setSizes([620, 280])
+
+        root_layout = QVBoxLayout()
+        root_layout.setContentsMargins(18, 16, 18, 16)
+        root_layout.setSpacing(0)
+        root_layout.addWidget(splitter)
+        self.setLayout(root_layout)
+        self.setMinimumSize(900, 700)
 
         self.btn_load.clicked.connect(self.load_file)
         self.btn_export.clicked.connect(self.export_report)
         self.btn_report_folder.clicked.connect(self.pick_report_folder)
         self.btn_health.clicked.connect(self.refresh_backend_health)
         self.btn_generate_symbols.clicked.connect(self.generate_linux_symbols)
+        self.btn_load_symbol_file.clicked.connect(self.load_linux_symbol_file)
         self.btn_check_env.clicked.connect(self.check_environment_compatibility)
         self.btn_full.clicked.connect(lambda: self.start_task("full"))
         self.btn_process.clicked.connect(lambda: self.start_task("process"))
@@ -369,15 +541,19 @@ class MemoryForensicsApp(QWidget):
         self.btn_browse_vol2.clicked.connect(self.browse_vol2_script)
         self.btn_browse_vol2_python.clicked.connect(self.browse_vol2_python)
         self.btn_browse_vmlinux.clicked.connect(self.browse_vmlinux)
+        self.btn_browse_dwarf2json.clicked.connect(self.browse_dwarf2json)
+        self.btn_browse_wsl.clicked.connect(self.browse_wsl)
         self.btn_vol2_imageinfo.clicked.connect(self.run_vol2_imageinfo)
+        self.os_selector.currentIndexChanged.connect(self.refresh_backend_health)
         self.refresh_backend_health()
+        self._load_config()
 
     def _apply_theme(self):
         self.setStyleSheet(
             """
             QWidget {
-                background: #f7f9fc;
-                color: #1f2937;
+                background: #0f172a;
+                color: #e2e8f0;
                 font-family: "Segoe UI", "Inter", Arial, sans-serif;
                 font-size: 13px;
             }
@@ -385,11 +561,11 @@ class MemoryForensicsApp(QWidget):
                 font-size: 13px;
             }
             QLineEdit, QComboBox, QTextEdit {
-                background: #ffffff;
-                border: 1px solid #d8dee9;
+                background: #111827;
+                border: 1px solid #334155;
                 border-radius: 6px;
                 padding: 6px;
-                color: #111827;
+                color: #e2e8f0;
             }
             QTextEdit, QPlainTextEdit {
                 font-family: "Consolas", "Cascadia Mono", "Courier New", monospace;
@@ -398,9 +574,18 @@ class MemoryForensicsApp(QWidget):
                 selection-background-color: #bfdbfe;
             }
             QTextEdit[resultsPanel="true"], QPlainTextEdit[resultsPanel="true"] {
-                background: #ffffff;
-                color: #0f172a;
-                border: 1px solid #b6c2d2;
+                background: #020617;
+                color: #cbd5e1;
+                border: 1px solid #334155;
+            }
+            QTextEdit[logConsole="true"] {
+                background: #1e1e1e;
+                color: #b8f0b8;
+                border: 1px solid #3c3c3c;
+            }
+            QTextEdit[logConsole="true"]:read-only {
+                background: #1e1e1e;
+                color: #d0e8d0;
             }
             QTextEdit[resultsPanel="true"]:read-only, QPlainTextEdit[resultsPanel="true"]:read-only {
                 background: #ffffff;
@@ -411,12 +596,12 @@ class MemoryForensicsApp(QWidget):
                 color: #1f2937;
             }
             QPushButton {
-                background: #ffffff;
-                border: 1px solid #d8dee9;
+                background: #111827;
+                border: 1px solid #334155;
                 border-radius: 6px;
                 padding: 7px 12px;
                 min-height: 30px;
-                color: #1f2937;
+                color: #e2e8f0;
             }
             QPushButton[variant="primary"] {
                 background: #2563eb;
@@ -454,8 +639,8 @@ class MemoryForensicsApp(QWidget):
                 color: #eff6ff;
             }
             QTabWidget::pane {
-                border: 1px solid #cbd5e1;
-                background: #ffffff;
+                border: 1px solid #334155;
+                background: #020617;
                 border-radius: 6px;
             }
             QTabBar::tab {
@@ -490,6 +675,25 @@ class MemoryForensicsApp(QWidget):
             QScrollBar::handle:vertical:hover {
                 background: #64748b;
             }
+            QTextEdit[logConsole="true"] QScrollBar:vertical {
+                background: #2d2d2d;
+                width: 14px;
+            }
+            QTextEdit[logConsole="true"] QScrollBar::handle:vertical {
+                background: #5a5a5a;
+                min-height: 24px;
+            }
+            QTextEdit[logConsole="true"] QScrollBar::handle:vertical:hover {
+                background: #6e6e6e;
+            }
+            QTextEdit[logConsole="true"] QScrollBar:horizontal {
+                background: #2d2d2d;
+                height: 14px;
+            }
+            QTextEdit[logConsole="true"] QScrollBar::handle:horizontal {
+                background: #5a5a5a;
+                min-width: 24px;
+            }
             QScrollBar:horizontal {
                 background: #f1f5f9;
                 height: 12px;
@@ -509,20 +713,21 @@ class MemoryForensicsApp(QWidget):
             """
         )
 
-    def _configure_results_panel(self, widget):
-        # Explicit palette prevents washed-out text on some system themes/read-only states.
+    def _configure_live_log_console(self, widget):
         palette = widget.palette()
-        base = QColor("#ffffff")
-        text = QColor("#0f172a")
-        highlight = QColor("#bfdbfe")
-        highlighted_text = QColor("#0f172a")
+        bg = QColor("#1e1e1e")
+        fg = QColor("#d0ead0")
+        highlight = QColor("#264f78")
+        highlighted_text = QColor("#eafaea")
 
         for group in (QPalette.Active, QPalette.Inactive, QPalette.Disabled):
-            palette.setColor(group, QPalette.Base, base)
-            palette.setColor(group, QPalette.Text, text)
+            palette.setColor(group, QPalette.Base, bg)
+            palette.setColor(group, QPalette.Text, fg)
+            palette.setColor(group, QPalette.Window, bg)
+            palette.setColor(group, QPalette.Button, QColor("#2d2d2d"))
             palette.setColor(group, QPalette.Highlight, highlight)
             palette.setColor(group, QPalette.HighlightedText, highlighted_text)
-            palette.setColor(group, QPalette.PlaceholderText, QColor("#64748b"))
+            palette.setColor(group, QPalette.PlaceholderText, QColor("#7abd7a"))
 
         widget.setPalette(palette)
         widget.setAutoFillBackground(True)
@@ -530,6 +735,142 @@ class MemoryForensicsApp(QWidget):
         mono.setStyleHint(QFont.Monospace)
         mono.setPointSize(10)
         widget.setFont(mono)
+
+    def _configure_results_panel(self, widget):
+        # Explicit palette prevents washed-out text on some system themes/read-only states.
+        palette = widget.palette()
+        base = QColor("#020617")
+        text = QColor("#cbd5e1")
+        highlight = QColor("#1d4ed8")
+        highlighted_text = QColor("#e2e8f0")
+
+        for group in (QPalette.Active, QPalette.Inactive, QPalette.Disabled):
+            palette.setColor(group, QPalette.Base, base)
+            palette.setColor(group, QPalette.Text, text)
+            palette.setColor(group, QPalette.Highlight, highlight)
+            palette.setColor(group, QPalette.HighlightedText, highlighted_text)
+            palette.setColor(group, QPalette.PlaceholderText, QColor("#94a3b8"))
+
+        widget.setPalette(palette)
+        widget.setAutoFillBackground(True)
+        mono = QFont("Consolas")
+        mono.setStyleHint(QFont.Monospace)
+        mono.setPointSize(10)
+        widget.setFont(mono)
+
+    def _target_os(self):
+        return self.os_selector.currentData() or "windows"
+
+    def _config_path(self):
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
+
+    def _save_config(self):
+        cfg = {
+            "engine": self.engine_combo.currentData() or "3",
+            "vol2_profile": self.vol2_profile_edit.text().strip(),
+            "vol2_script": self.vol2_script_edit.text().strip(),
+            "vol2_python": self.vol2_python_edit.text().strip(),
+            "vmlinux_path": self.vmlinux_path_edit.text().strip(),
+            "dwarf2json_path": self.dwarf2json_path_edit.text().strip(),
+            "wsl_path": self.wsl_path_edit.text().strip(),
+            "report_dir": self.report_dir or "",
+            "last_os": self._target_os(),
+        }
+        try:
+            with open(self._config_path(), "w", encoding="utf-8") as fp:
+                json.dump(cfg, fp, indent=2)
+        except Exception:
+            pass
+
+    def _load_config(self):
+        try:
+            with open(self._config_path(), "r", encoding="utf-8") as fp:
+                cfg = json.load(fp)
+        except Exception:
+            return
+        engine = str(cfg.get("engine", "3"))
+        idx = self.engine_combo.findData(engine)
+        if idx >= 0:
+            self.engine_combo.setCurrentIndex(idx)
+        self.vol2_profile_edit.setText(cfg.get("vol2_profile", ""))
+        self.vol2_script_edit.setText(cfg.get("vol2_script", ""))
+        self.vol2_python_edit.setText(cfg.get("vol2_python", ""))
+        self.vmlinux_path_edit.setText(cfg.get("vmlinux_path", ""))
+        self.dwarf2json_path_edit.setText(cfg.get("dwarf2json_path", ""))
+        self.wsl_path_edit.setText(cfg.get("wsl_path", ""))
+        self.report_dir = cfg.get("report_dir") or None
+        if self.report_dir:
+            self.report_folder_label.setText(f"Reports folder: {self.report_dir}")
+        os_idx = self.os_selector.findData(cfg.get("last_os", "windows"))
+        if os_idx >= 0:
+            self.os_selector.setCurrentIndex(os_idx)
+        self._sync_volatility_config_from_ui()
+        self.refresh_backend_health()
+
+    def _clear_live_log(self):
+        self.log_panel.clear()
+
+    def _append_log(self, line):
+        if line is None or line == "":
+            return
+        self.log_panel.append(str(line))
+        scroll = self.log_panel.verticalScrollBar()
+        scroll.setValue(scroll.maximum())
+
+    def _symbol_dir_for_os(self, os_type):
+        base = os.path.join(os.path.dirname(os.path.abspath(__file__)), "symbols")
+        mapped = "mac" if os_type == "mac" else os_type
+        target = os.path.join(base, mapped)
+        os.makedirs(target, exist_ok=True)
+        return target
+
+    def _update_linux_symbol_banner(self, show, message=""):
+        self.linux_symbol_banner.setVisible(show)
+        self.btn_load_symbol_file.setVisible(show)
+        if show:
+            self.linux_symbol_banner.setText(message or "Linux dump detected — symbol file required")
+        else:
+            self.linux_symbol_banner.setText("")
+
+    def load_linux_symbol_file(self):
+        if not self.memory_file:
+            QMessageBox.warning(self, "Symbol file", "Load a memory dump first.")
+            return
+        path, _ = QFileDialog.getOpenFileName(
+            self,
+            "Load Symbol File (.json/.json.xz)",
+            "",
+            "Symbols (*.json *.json.xz);;All files (*.*)",
+        )
+        if not path:
+            return
+        try:
+            target_dir = self._symbol_dir_for_os("linux")
+            base = os.path.basename(path)
+            if base.lower().endswith(".json.xz"):
+                out_name = base[:-3]
+                out_path = os.path.join(target_dir, out_name)
+                with lzma.open(path, "rb") as src, open(out_path, "wb") as dst:
+                    shutil.copyfileobj(src, dst)
+                saved = out_path
+            else:
+                saved = os.path.join(target_dir, base)
+                shutil.copy2(path, saved)
+        except Exception as exc:
+            QMessageBox.warning(self, "Symbol file", f"Failed to import symbol file: {exc}")
+            return
+        self._append_log(f"[symbols] Installed Linux ISF: {saved}")
+        # Compatibility mirror for environments expecting volatility3/symbols/linux.
+        compat_dir = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "volatility3", "symbols", "linux"
+        )
+        try:
+            os.makedirs(compat_dir, exist_ok=True)
+            shutil.copy2(saved, os.path.join(compat_dir, os.path.basename(saved)))
+        except Exception:
+            pass
+        self._update_linux_symbol_banner(False)
+        self.refresh_backend_health()
 
     def run_vol2_imageinfo(self):
         if not self.memory_file:
@@ -588,10 +929,13 @@ class MemoryForensicsApp(QWidget):
         vm = self.vmlinux_path_edit.text().strip()
         if vm:
             os.environ["VOLATILITY_LINUX_VMLINUX"] = vm
+        dwarf = self.dwarf2json_path_edit.text().strip()
+        if dwarf:
+            os.environ["VOLATILITY_DWARF2JSON"] = dwarf
         wsl_path = self.wsl_path_edit.text().strip()
         if wsl_path:
             os.environ["VOLATILITY_WSL_PATH"] = wsl_path
-        self.refresh_backend_health()
+        self._save_config()
 
     def refresh_backend_health(self):
         health = get_backend_health()
@@ -603,14 +947,29 @@ class MemoryForensicsApp(QWidget):
             )
         else:
             self.btn_generate_symbols.setToolTip("")
-        if health.get("status") == "healthy":
-            self.health_label.setText(
-                f"Backend health: healthy | symbols={health.get('symbol_json_count', 0)} | vol3={health.get('vol3_command', 'n/a')}"
-            )
+        target_os = self._target_os()
+        symbol_root = self._symbol_dir_for_os(target_os if target_os != "macos" else "mac")
+        os_symbol_count = 0
+        try:
+            os_symbol_count = len([n for n in os.listdir(symbol_root) if n.lower().endswith(".json")])
+        except Exception:
+            os_symbol_count = 0
+        issues = list(health.get("issues", []))
+        if health.get("vol3_ready") is False:
+            icon = "❌"
+            state = "error"
+            issues.insert(0, "Volatility 3 not callable")
+        elif os_symbol_count == 0:
+            icon = "⚠️"
+            state = "warning"
+            issues.insert(0, f"No {target_os} symbol JSON files found")
         else:
-            issues = health.get("issues", [])
-            issue_text = " ; ".join(issues[:2]) if issues else "check backend configuration"
-            self.health_label.setText(f"Backend health: warning | {issue_text}")
+            icon = "✅"
+            state = "healthy"
+        issue_text = " ; ".join(issues[:2]) if issues else "All checks passed"
+        self.health_label.setText(
+            f"Backend health: {icon} {state} | vol3={health.get('vol3_command') or 'n/a'} | {target_os} symbols={os_symbol_count} | {issue_text}"
+        )
 
     def generate_linux_symbols(self):
         env = get_environment_compatibility()
@@ -625,7 +984,7 @@ class MemoryForensicsApp(QWidget):
         if not self.memory_file:
             QMessageBox.information(self, "Generate Linux Symbols", "Load a memory dump first.")
             return
-        detected_os = self.last_profile.get("guessed_os", self.os_selector.currentText())
+        detected_os = self._target_os()
         if detected_os != "linux":
             QMessageBox.information(
                 self,
@@ -645,12 +1004,15 @@ class MemoryForensicsApp(QWidget):
 
     def check_environment_compatibility(self):
         env = get_environment_compatibility()
+        cfg = get_volatility_config()
         lines = [
+            f"Python version: {platform.python_version()}",
             f"Host OS: {env.get('host')}",
             f"Windows host: {env.get('is_windows')}",
             f"WSL available: {env.get('wsl_available')}",
             f"WSL path: {env.get('wsl_path') or 'not found'}",
-            f"dwarf2json: {env.get('dwarf2json_path') or 'not found'}",
+            f"vol.py path: {get_resolved_vol2_script() or cfg.get('vol2_script') or 'not set'}",
+            f"dwarf2json: {env.get('dwarf2json_path') or self.dwarf2json_path_edit.text().strip() or 'not found'}",
             f"vmlinux candidates: {len(env.get('vmlinux_candidates', []))}",
             "Linux symbol generation support: "
             + ("yes" if env.get("linux_symbol_generation_supported") else "no"),
@@ -687,6 +1049,26 @@ class MemoryForensicsApp(QWidget):
         if path:
             self.vmlinux_path_edit.setText(path)
 
+    def browse_dwarf2json(self):
+        path, _ = QFileDialog.getOpenFileName(
+            self,
+            "Select dwarf2json executable",
+            "",
+            "Executable (*.exe);;All files (*.*)",
+        )
+        if path:
+            self.dwarf2json_path_edit.setText(path)
+
+    def browse_wsl(self):
+        path, _ = QFileDialog.getOpenFileName(
+            self,
+            "Select WSL executable",
+            "",
+            "Executable (*.exe);;All files (*.*)",
+        )
+        if path:
+            self.wsl_path_edit.setText(path)
+
     def _set_busy(self, busy):
         self.btn_load.setEnabled(not busy)
         for b in self._task_buttons:
@@ -700,6 +1082,7 @@ class MemoryForensicsApp(QWidget):
         if path:
             self.report_dir = path
             self.report_folder_label.setText(f"Reports folder: {path}")
+            self._save_config()
 
     def load_file(self):
         self._sync_volatility_config_from_ui()
@@ -714,20 +1097,28 @@ class MemoryForensicsApp(QWidget):
             self,
             "Select Memory Dump",
             "",
-            "Memory dumps (*.lime *.raw *.dump *.dmp);;All files (*.*)",
+            "Memory dumps (*.raw *.mem *.dmp *.vmem);;All files (*.*)",
         )
         if file_path:
             self.memory_file = file_path
+            self.report_dir = os.path.dirname(file_path)
+            self.report_folder_label.setText(f"Reports folder: {self.report_dir}")
             self.completed_tasks.clear()
             self.last_profile = detect_os_profile(file_path)
             guessed = self.last_profile.get("guessed_os", "windows")
-            index = self.os_selector.findText(guessed)
+            index = self.os_selector.findData(guessed)
             if index >= 0:
                 self.os_selector.setCurrentIndex(index)
             self.label.setText(f"Loaded: {file_path}")
             self.status.setText(
                 f"Detected OS: {self.last_profile['guessed_os']} ({self.last_profile['confidence']})"
             )
+            if guessed == "linux":
+                self._update_linux_symbol_banner(True, "Linux dump detected — symbol file required")
+                self.load_linux_symbol_file()
+            else:
+                self._update_linux_symbol_banner(False)
+            self.refresh_backend_health()
 
     def start_task(self, task):
         if not self.memory_file:
@@ -746,47 +1137,46 @@ class MemoryForensicsApp(QWidget):
 
         self._set_busy(True)
         self.thread = WorkerThread(task, self.memory_file)
-        detected_os = self.last_profile.get("guessed_os", self.os_selector.currentText())
+        detected_os = self._target_os()
         self.thread.set_os_type(detected_os)
         self.thread.progress.connect(self.status.setText)
+        self.thread.progress_percent.connect(self.progress_bar.setValue)
+        self.thread.log.connect(self._append_log)
         self.thread.step_done.connect(self.show_result)
         self.thread.all_done.connect(self._analysis_finished)
         self.thread.start()
 
     def _analysis_finished(self):
         self._set_busy(False)
+        self.progress_bar.setValue(100)
         self.status.setText("Done ✅")
 
     def show_result(self, task, result, extra=None):
         self.completed_tasks.add(task)
 
         if task == "process":
-            self.process_tab.setPlainText(result)
-            detected_os = self.last_profile.get("guessed_os", self.os_selector.currentText())
-            self.last_process_records = get_process_records(self.memory_file, os_type=detected_os)
-            self.last_process_tree_records = get_process_tree_records(
-                self.memory_file, os_type=detected_os
-            )
-            self.last_thread_records = get_thread_records(self.memory_file, os_type=detected_os)
-            self.last_dll_records = get_dll_records(self.memory_file, os_type=detected_os)
-            self.process_deep_tab.setPlainText(self._format_process_deep_dive())
+            self.process_tab.set_text_result(result)
+            payload = extra or {}
+            self.last_process_records = payload.get("process_records", [])
+            self.last_process_tree_records = payload.get("process_tree_records", [])
+            self.last_thread_records = payload.get("thread_records", [])
+            self.last_dll_records = payload.get("dll_records", [])
+            self.process_deep_tab.set_rows(self._process_deep_rows())
 
         elif task == "injection":
-            self.injection_tab.setPlainText(result)
+            self.injection_tab.set_text_result(result)
             if extra is not None:
                 self.last_injection = list(extra)
             else:
                 self.last_injection = []
 
         elif task == "network":
-            self.network_tab.setPlainText(result)
-            detected_os = self.last_profile.get("guessed_os", self.os_selector.currentText())
-            self.last_connection_records = get_connection_records(
-                self.memory_file, os_type=detected_os
-            )
+            self.network_tab.set_text_result(result)
+            payload = extra or {}
+            self.last_connection_records = payload.get("connection_records", [])
 
         elif task == "secrets":
-            self.secrets_tab.setPlainText(result)
+            self.secrets_tab.set_text_result(result)
             if extra is not None:
                 self.last_secrets = extra
             else:
@@ -796,7 +1186,7 @@ class MemoryForensicsApp(QWidget):
                     self.last_secrets = {"raw": result}
 
         elif task == "yara":
-            self.yara_tab.setPlainText(result)
+            self.yara_tab.set_text_result(result)
             self.last_yara_matches = extra if extra is not None else []
 
     def _format_process_deep_dive(self):
@@ -811,6 +1201,26 @@ class MemoryForensicsApp(QWidget):
             "sample_dll_records": self.last_dll_records[:10],
         }
         return json.dumps(summary, indent=2)
+
+    def _process_deep_rows(self):
+        rows = []
+        for item in self.last_process_records[:200]:
+            row = dict(item)
+            row["_type"] = "process"
+            rows.append(row)
+        for item in self.last_process_tree_records[:200]:
+            row = dict(item)
+            row["_type"] = "tree"
+            rows.append(row)
+        for item in self.last_thread_records[:200]:
+            row = dict(item)
+            row["_type"] = "thread"
+            rows.append(row)
+        for item in self.last_dll_records[:200]:
+            row = dict(item)
+            row["_type"] = "module"
+            rows.append(row)
+        return rows
 
     def export_report(self):
         if not self.memory_file:
@@ -839,7 +1249,7 @@ class MemoryForensicsApp(QWidget):
         if rp:
             vol_meta["vol2_script_resolved"] = rp
         vol_meta["volatility3_status"] = volatility_engine_status()
-        detected_os = self.last_profile.get("guessed_os", self.os_selector.currentText())
+        detected_os = self._target_os()
         vol_meta["symbol_diagnostics"] = get_symbol_diagnostics(
             self.memory_file, detected_os
         )
