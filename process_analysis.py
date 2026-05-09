@@ -180,8 +180,13 @@ def detect_injection(memory_file, os_type="windows"):
     return details.get("summary", [])
 
 
-def get_process_records(memory_file, os_type="windows"):
-    output = get_processes(memory_file, os_type=os_type)
+def get_process_records(memory_file, os_type="windows", cached_pslist_output=None):
+    """If cached_pslist_output is provided, parses that text instead of re-invoking Volatility."""
+    output = (
+        cached_pslist_output
+        if cached_pslist_output is not None
+        else get_processes(memory_file, os_type=os_type)
+    )
     if output.startswith("[volatility error]") or output.startswith("[runner error]"):
         return []
     return parse_volatility_table(output, min_columns=3)
@@ -192,16 +197,25 @@ def get_process_tree(memory_file, os_type="windows"):
     return run_first_available(plugins, memory_file, os_type=os_type.lower())
 
 
-def get_process_tree_records(memory_file, os_type="windows"):
-    output = get_process_tree(memory_file, os_type=os_type)
+def get_process_tree_records(memory_file, os_type="windows", cached_pstree_output=None):
+    output = (
+        cached_pstree_output
+        if cached_pstree_output is not None
+        else get_process_tree(memory_file, os_type=os_type)
+    )
     if output.startswith("[volatility error]") or output.startswith("[runner error]"):
         return []
     return parse_volatility_table(output, min_columns=3)
 
 
-def get_thread_records(memory_file, os_type="windows"):
-    plugins = THREADS_PLUGIN.get(os_type.lower(), THREADS_PLUGIN["windows"])
-    output = run_first_available(plugins, memory_file, os_type=os_type.lower())
+def get_thread_records(memory_file, os_type="windows", cached_pslist_output=None):
+    """Windows runs threads plugin; linux/mac reuse process-list output when threads maps to pslist-style plugins."""
+    os_l = (os_type or "windows").lower()
+    plugins = THREADS_PLUGIN.get(os_l, THREADS_PLUGIN["windows"])
+    use_cached = cached_pslist_output is not None and os_l != "windows" and any(
+        "pslist" in str(p).lower() for p in plugins
+    )
+    output = cached_pslist_output if use_cached else run_first_available(plugins, memory_file, os_type=os_l)
     if output.startswith("[volatility error]") or output.startswith("[runner error]"):
         return []
     return parse_volatility_table(output, min_columns=3)

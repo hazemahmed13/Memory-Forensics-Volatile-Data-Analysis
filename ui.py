@@ -31,24 +31,30 @@ from process_analysis import (
     get_dll_records,
     get_process_records,
     get_processes,
+    get_process_tree,
     get_process_tree_records,
     get_thread_records,
 )
-from network_analysis import get_connections, get_connection_records
+from network_analysis import get_connections, get_connection_records, fetch_network_volatility_output
 from secrets_analysis import detect_keys_and_credentials
 from yara_scan import format_yara_matches, scan_memory
 from os_profile import detect_os_profile
 from report_export import build_report, export_report_json, export_report_txt, export_report_html
 from volatility_runner import (
-    get_environment_compatibility,
+    cancel_all_volatility_subprocesses,
+    clear_preflight_requirements_cache,
+    clear_volatility_output_cache,
     generate_linux_symbols_for_dump,
     get_backend_health,
-    get_symbol_diagnostics,
+    get_environment_compatibility,
     get_resolved_vol2_script,
+    get_symbol_diagnostics,
     get_volatility_config,
     run_volatility,
     set_runtime_log_sink,
     set_volatility_config,
+    set_volatility_progress_callback,
+    set_volatility_progress_span,
     volatility_any_backend_ok,
     volatility_engine_status,
 )
@@ -58,6 +64,7 @@ import os
 import lzma
 import shutil
 import platform
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 class ResultsTableWidget(QWidget):
@@ -134,9 +141,16 @@ class WorkerThread(QThread):
         try:
             if task_name == "process":
                 process_text = get_processes(self.memory_file, os_type=os_type)
-                process_records = get_process_records(self.memory_file, os_type=os_type)
-                process_tree_records = get_process_tree_records(self.memory_file, os_type=os_type)
-                thread_records = get_thread_records(self.memory_file, os_type=os_type)
+                tree_text = get_process_tree(self.memory_file, os_type=os_type)
+                process_records = get_process_records(
+                    self.memory_file, os_type=os_type, cached_pslist_output=process_text
+                )
+                process_tree_records = get_process_tree_records(
+                    self.memory_file, os_type=os_type, cached_pstree_output=tree_text
+                )
+                thread_records = get_thread_records(
+                    self.memory_file, os_type=os_type, cached_pslist_output=process_text
+                )
                 dll_records = get_dll_records(self.memory_file, os_type=os_type)
                 payload = {
                     "process_records": process_records,
@@ -172,9 +186,12 @@ class WorkerThread(QThread):
                 return text, summary
 
             if task_name == "network":
-                data = get_connections(self.memory_file, os_type=os_type)
+                net_raw = fetch_network_volatility_output(self.memory_file, os_type=os_type)
+                data = get_connections(self.memory_file, os_type=os_type, cached_volatility_output=net_raw)
                 text = "\n".join(data[:50])
-                connection_records = get_connection_records(self.memory_file, os_type=os_type)
+                connection_records = get_connection_records(
+                    self.memory_file, os_type=os_type, cached_volatility_output=net_raw
+                )
                 return text, {"connection_records": connection_records}
 
             if task_name == "secrets":
@@ -194,25 +211,183 @@ class WorkerThread(QThread):
         return "Unknown task", None
 
     def run(self):
-        if self.task == "full":
-            steps = ["process", "injection", "network", "secrets", "yara"]
-            set_runtime_log_sink(self.log.emit)
-            for idx, step in enumerate(steps, start=1):
-                self.progress.emit(f"Running {step}… (full analysis)")
-                self.progress_percent.emit(int((idx - 1) * 100 / len(steps)))
-                result, extra = self._run_one(step)
-                self.step_done.emit(step, result, extra)
-            self.progress_percent.emit(100)
+        interrupted = False
+        set_runtime_log_sink(self.log.emit)
+        steps_total = 5 if self.task == "full" else 1
+        executor = None
+        try:
+            if self.task == "full":
+                all_steps = ["process", "injection", "network", "secrets", "yara"]
+                proc_step = all_steps[0]
+                remainder = list(all_steps[1:])
+                futures_map = {}
+
+                if self.isInterruptionRequested():
+                    interrupted = True
+                    raise InterruptedError()
+
+                pct_lo_proc = int((0 / steps_total) * 100)
+                pct_hi_proc = max(pct_lo_proc + 3, int((1 / steps_total) * 100))
+                set_volatility_progress_span(pct_lo_proc, pct_hi_proc)
+                set_volatility_progress_callback(lambda p: self.progress_percent.emit(int(p)))
+                self.progress.emit(f"Running {proc_step}… (full analysis)")
+                self.progress_percent.emit(pct_lo_proc)
+                pres, pextra = self._run_one(proc_step)
+                self.step_done.emit(proc_step, pres, pextra)
+                self.progress_percent.emit(pct_hi_proc)
+
+                if self.isInterruptionRequested():
+                    interrupted = True
+                    raise InterruptedError()
+
+                set_volatility_progress_callback(None)
+                set_volatility_progress_span(0, 100)
+
+                start_parallel = pct_hi_proc
+                parallel_budget = max(100 - start_parallel - 2, 1)
+                workers = min(max(2, os.cpu_count() or 2), 4, len(remainder))
+                executor = ThreadPoolExecutor(max_workers=max(1, workers))
+                for st in remainder:
+                    if self.isInterruptionRequested():
+                        interrupted = True
+                        raise InterruptedError()
+                    futures_map[executor.submit(self._run_one, st)] = st
+
+                gathered = {}
+                done = 0
+                total_r = len(remainder) or 1
+                for fut in as_completed(futures_map):
+                    if self.isInterruptionRequested():
+                        interrupted = True
+                        cancel_all_volatility_subprocesses()
+                        break
+                    st_name = futures_map[fut]
+                    try:
+                        res = fut.result()
+                    except Exception as ex:
+                        from forensics_logging import log_exception
+
+                        log_exception(f"worker.parallel.{st_name}", ex)
+                        gathered[st_name] = (f"[worker error] {ex}", None)
+                    else:
+                        gathered[st_name] = res
+                    done += 1
+                    pct = min(
+                        99,
+                        int(start_parallel + parallel_budget * (done / total_r)),
+                    )
+                    self.progress_percent.emit(pct)
+
+                for st in remainder:
+                    if st not in gathered:
+                        continue
+                    text, extra = gathered[st]
+                    self.progress.emit(f"Publishing {st}…")
+                    self.step_done.emit(st, text, extra)
+
+                if not interrupted and not self.isInterruptionRequested():
+                    self.progress_percent.emit(100)
+
+            else:
+                set_volatility_progress_span(0, 100)
+                set_volatility_progress_callback(lambda p: self.progress_percent.emit(int(p)))
+                self.progress.emit(f"Running {self.task}…")
+                self.progress_percent.emit(0)
+                text, extra = self._run_one(self.task)
+                self.step_done.emit(self.task, text, extra)
+                if not self.isInterruptionRequested():
+                    self.progress_percent.emit(100)
+        except InterruptedError:
+            interrupted = True
+            self.progress.emit("Analysis cancelled.")
+        except Exception as exc:
+            from forensics_logging import log_exception
+
+            log_exception("worker.run", exc)
+            try:
+                self.log.emit(f"[worker error] {exc}")
+            except Exception:
+                pass
+        finally:
+            if executor is not None:
+                try:
+                    executor.shutdown(wait=False, cancel_futures=True)
+                except Exception:
+                    try:
+                        executor.shutdown(wait=False)
+                    except Exception:
+                        pass
+            set_volatility_progress_callback(None)
+            set_volatility_progress_span(0, 100)
             set_runtime_log_sink(None)
-        else:
-            set_runtime_log_sink(self.log.emit)
-            self.progress.emit(f"Running {self.task}…")
-            self.progress_percent.emit(10)
-            result, extra = self._run_one(self.task)
-            self.step_done.emit(self.task, result, extra)
-            self.progress_percent.emit(100)
-            set_runtime_log_sink(None)
-        self.all_done.emit()
+            self.all_done.emit()
+
+
+class OsProfileDetectionThread(QThread):
+    """Runs detect_os_profile off the GUI thread."""
+
+    profile_ready = pyqtSignal(dict, str)
+    failed = pyqtSignal(str, str)
+
+    def __init__(self, dump_path, parent=None):
+        super().__init__(parent)
+        self.dump_path = dump_path
+
+    def run(self):
+        if self.isInterruptionRequested():
+            return
+        try:
+            prof = detect_os_profile(self.dump_path)
+            self.profile_ready.emit(prof, self.dump_path)
+        except Exception as exc:
+            self.failed.emit(str(exc), self.dump_path)
+
+
+class Vol2ImageinfoThread(QThread):
+    """Runs Volatility 2 imageinfo without blocking the UI."""
+
+    output_ready = pyqtSignal(str)
+    failed = pyqtSignal(str)
+
+    def __init__(self, memory_file, restore_engine, restore_prof, restore_script, restore_py, parent=None):
+        super().__init__(parent)
+        self.memory_file = memory_file
+        self._restore = (restore_engine, restore_prof, restore_script, restore_py)
+
+    def run(self):
+        try:
+            eng, prof, script, pyexe = (
+                self._restore[0],
+                self._restore[1],
+                self._restore[2],
+                self._restore[3],
+            )
+            set_volatility_config(engine="2", vol2_profile="", vol2_script=script, vol2_python=pyexe)
+            out = run_volatility("windows.info", self.memory_file, os_type="windows")
+            set_volatility_config(engine=eng, vol2_profile=prof, vol2_script=script, vol2_python=pyexe)
+            self.output_ready.emit(out or "")
+        except Exception as exc:
+            eng, prof, script, pyexe = self._restore
+            try:
+                set_volatility_config(engine=eng, vol2_profile=prof, vol2_script=script, vol2_python=pyexe)
+            except Exception:
+                pass
+            self.failed.emit(str(exc))
+
+
+class LinuxSymbolsGenerationThread(QThread):
+    finished = pyqtSignal(dict)
+
+    def __init__(self, memory_file, parent=None):
+        super().__init__(parent)
+        self.memory_file = memory_file
+
+    def run(self):
+        try:
+            res = generate_linux_symbols_for_dump(self.memory_file)
+            self.finished.emit(res if isinstance(res, dict) else {"ok": False, "message": str(res)})
+        except Exception as exc:
+            self.finished.emit({"ok": False, "message": str(exc), "recovery": {}})
 
 
 class MemoryForensicsApp(QWidget):
@@ -236,6 +411,12 @@ class MemoryForensicsApp(QWidget):
         self.last_injection = []
         self.last_secrets = {}
         self.last_yara_matches = []
+
+        self.thread = None
+        self._profile_thread = None
+        self._pending_profile_dump = None
+        self._vol2_thread = None
+        self._linux_sym_thread = None
 
         self.label = QLabel("No memory file selected")
         self.status = QLabel("Status: Idle")
@@ -876,6 +1057,9 @@ class MemoryForensicsApp(QWidget):
         if not self.memory_file:
             QMessageBox.warning(self, "imageinfo", "Load a memory dump first.")
             return
+        if isinstance(self._vol2_thread, QThread) and self._vol2_thread.isRunning():
+            QMessageBox.information(self, "imageinfo", "imageinfo is already running.")
+            return
         self._sync_volatility_config_from_ui()
         if get_volatility_config()["engine"] != "2":
             QMessageBox.information(
@@ -888,35 +1072,16 @@ class MemoryForensicsApp(QWidget):
             QMessageBox.warning(self, "imageinfo", "Set path to vol.py (Browse) or env VOLATILITY2_VOLPY.")
             return
 
-        eng, prof, script, pyexe = (
-            get_volatility_config()["engine"],
-            self.vol2_profile_edit.text().strip(),
-            self.vol2_script_edit.text().strip(),
-            self.vol2_python_edit.text().strip(),
-        )
-        set_volatility_config(engine="2", vol2_profile="", vol2_script=script, vol2_python=pyexe)
+        eng = get_volatility_config()["engine"]
+        prof = self.vol2_profile_edit.text().strip()
+        script = self.vol2_script_edit.text().strip()
+        pyexe = self.vol2_python_edit.text().strip()
+        self._set_busy(True)
         self.status.setText("Running imageinfo…")
-        out = run_volatility("windows.info", self.memory_file, os_type="windows")
-        set_volatility_config(engine=eng, vol2_profile=prof, vol2_script=script, vol2_python=pyexe)
-
-        dlg = QDialog(self)
-        dlg.setWindowTitle("imageinfo (Volatility 2)")
-        vbox = QVBoxLayout(dlg)
-        te = QTextEdit()
-        te.setReadOnly(True)
-        te.setProperty("resultsPanel", "true")
-        self._configure_results_panel(te)
-        te.setPlainText(out)
-        te.setMinimumSize(720, 420)
-        vbox.addWidget(te)
-        hint = QLabel("Copy one line from “Suggested Profile(s)” into “Volatility 2 — memory profile”, then run analysis.")
-        hint.setWordWrap(True)
-        vbox.addWidget(hint)
-        bb = QDialogButtonBox(QDialogButtonBox.Close)
-        bb.rejected.connect(dlg.accept)
-        vbox.addWidget(bb)
-        dlg.exec_()
-        self.status.setText("imageinfo finished — set profile field, then run Process / Full analysis.")
+        self._vol2_thread = Vol2ImageinfoThread(self.memory_file, eng, prof, script, pyexe)
+        self._vol2_thread.output_ready.connect(self._on_vol2_imageinfo_done)
+        self._vol2_thread.failed.connect(self._on_vol2_imageinfo_failed)
+        self._vol2_thread.start()
 
     def _sync_volatility_config_from_ui(self):
         eng = self.engine_combo.currentData() or "3"
@@ -992,15 +1157,14 @@ class MemoryForensicsApp(QWidget):
                 "Current dump is not detected as Linux. Load a Linux memory dump to use this action.",
             )
             return
+        if isinstance(self._linux_sym_thread, QThread) and self._linux_sym_thread.isRunning():
+            QMessageBox.information(self, "Generate Linux Symbols", "Linux symbol generation is already running.")
+            return
+        self._set_busy(True)
         self.status.setText("Generating Linux symbols…")
-        result = generate_linux_symbols_for_dump(self.memory_file)
-        self.refresh_backend_health()
-        if result.get("ok"):
-            self.status.setText("Linux symbols ready ✅")
-            QMessageBox.information(self, "Generate Linux Symbols", result.get("message", "Completed."))
-        else:
-            self.status.setText("Linux symbol generation failed")
-            QMessageBox.warning(self, "Generate Linux Symbols", result.get("message", "Failed."))
+        self._linux_sym_thread = LinuxSymbolsGenerationThread(self.memory_file)
+        self._linux_sym_thread.finished.connect(self._on_linux_symbols_finished)
+        self._linux_sym_thread.start()
 
     def check_environment_compatibility(self):
         env = get_environment_compatibility()
@@ -1076,6 +1240,94 @@ class MemoryForensicsApp(QWidget):
         for w in self._config_busy_widgets:
             w.setEnabled(not busy)
 
+    def _stop_running_analysis_thread(self, wait_ms=45000):
+        t = getattr(self, "thread", None)
+        if isinstance(t, QThread) and t.isRunning():
+            t.requestInterruption()
+            cancel_all_volatility_subprocesses()
+            t.wait(wait_ms)
+        self.thread = None
+
+    def _stop_auxiliary_workers(self, wait_ms=6000):
+        for name in ("_vol2_thread", "_linux_sym_thread", "_profile_thread"):
+            wt = getattr(self, name, None)
+            if isinstance(wt, QThread) and wt.isRunning():
+                wt.requestInterruption()
+                wt.wait(wait_ms)
+            setattr(self, name, None)
+
+    def _show_vol2_imageinfo_dialog(self, out):
+        dlg = QDialog(self)
+        dlg.setWindowTitle("imageinfo (Volatility 2)")
+        vbox = QVBoxLayout(dlg)
+        te = QTextEdit()
+        te.setReadOnly(True)
+        te.setProperty("resultsPanel", "true")
+        self._configure_results_panel(te)
+        te.setPlainText(out)
+        te.setMinimumSize(720, 420)
+        vbox.addWidget(te)
+        hint = QLabel(
+            "Copy one line from “Suggested Profile(s)” into “Volatility 2 — memory profile”, then run analysis."
+        )
+        hint.setWordWrap(True)
+        vbox.addWidget(hint)
+        bb = QDialogButtonBox(QDialogButtonBox.Close)
+        bb.rejected.connect(dlg.accept)
+        vbox.addWidget(bb)
+        dlg.exec_()
+
+    def _on_vol2_imageinfo_done(self, out):
+        self._vol2_thread = None
+        self._set_busy(False)
+        self._show_vol2_imageinfo_dialog(out)
+        self.status.setText("imageinfo finished — set profile field, then run Process / Full analysis.")
+
+    def _on_vol2_imageinfo_failed(self, errmsg):
+        self._vol2_thread = None
+        self._set_busy(False)
+        QMessageBox.warning(self, "imageinfo", f"Volatility 2 imageinfo failed:\n{errmsg}")
+
+    def _on_linux_symbols_finished(self, result):
+        self._linux_sym_thread = None
+        self._set_busy(False)
+        self.refresh_backend_health()
+        if result.get("ok"):
+            self.status.setText("Linux symbols ready ✅")
+            QMessageBox.information(self, "Generate Linux Symbols", result.get("message", "Completed."))
+        else:
+            self.status.setText("Linux symbol generation failed")
+            QMessageBox.warning(self, "Generate Linux Symbols", result.get("message", "Failed."))
+
+    def _on_os_profile_ready(self, profile, dump_path):
+        if dump_path != self._pending_profile_dump or dump_path != self.memory_file:
+            return
+        self._pending_profile_dump = None
+        self.last_profile = profile or {"guessed_os": "windows", "confidence": "low", "scores": {}}
+        guessed = self.last_profile.get("guessed_os", "windows")
+        index = self.os_selector.findData(guessed)
+        if index >= 0:
+            self.os_selector.setCurrentIndex(index)
+        self.label.setText(f"Loaded: {dump_path}")
+        self.status.setText(
+            f"Detected OS: {self.last_profile['guessed_os']} ({self.last_profile['confidence']})"
+        )
+        if guessed == "linux":
+            self._update_linux_symbol_banner(True, "Linux dump detected — symbol file required")
+            self.load_linux_symbol_file()
+        else:
+            self._update_linux_symbol_banner(False)
+        self.refresh_backend_health()
+
+    def _on_os_profile_failed(self, errmsg, dump_path):
+        if dump_path != self._pending_profile_dump or dump_path != self.memory_file:
+            return
+        self._pending_profile_dump = None
+        self.last_profile = {"guessed_os": "windows", "confidence": "low", "scores": {}, "error": errmsg}
+        self.status.setText(f"OS auto-detect failed: {errmsg} (defaulting windows)")
+        self._update_linux_symbol_banner(False)
+        self.refresh_backend_health()
+
     def pick_report_folder(self):
         default = self.report_dir or (os.path.dirname(self.memory_file) if self.memory_file else "")
         path = QFileDialog.getExistingDirectory(self, "Report output folder", default)
@@ -1100,25 +1352,26 @@ class MemoryForensicsApp(QWidget):
             "Memory dumps (*.raw *.mem *.dmp *.vmem);;All files (*.*)",
         )
         if file_path:
-            self.memory_file = file_path
-            self.report_dir = os.path.dirname(file_path)
+            canonical = os.path.abspath(file_path)
+            self._stop_running_analysis_thread()
+            self._stop_auxiliary_workers()
+            cancel_all_volatility_subprocesses()
+            clear_volatility_output_cache()
+            clear_preflight_requirements_cache()
+
+            self.memory_file = canonical
+            self.report_dir = os.path.dirname(canonical)
             self.report_folder_label.setText(f"Reports folder: {self.report_dir}")
             self.completed_tasks.clear()
-            self.last_profile = detect_os_profile(file_path)
-            guessed = self.last_profile.get("guessed_os", "windows")
-            index = self.os_selector.findData(guessed)
-            if index >= 0:
-                self.os_selector.setCurrentIndex(index)
-            self.label.setText(f"Loaded: {file_path}")
-            self.status.setText(
-                f"Detected OS: {self.last_profile['guessed_os']} ({self.last_profile['confidence']})"
-            )
-            if guessed == "linux":
-                self._update_linux_symbol_banner(True, "Linux dump detected — symbol file required")
-                self.load_linux_symbol_file()
-            else:
-                self._update_linux_symbol_banner(False)
-            self.refresh_backend_health()
+            self._pending_profile_dump = canonical
+            self.label.setText(f"Loaded: {canonical}")
+            self.status.setText("Detecting target OS via Volatility (background)…")
+            self._update_linux_symbol_banner(False)
+
+            self._profile_thread = OsProfileDetectionThread(canonical)
+            self._profile_thread.profile_ready.connect(self._on_os_profile_ready)
+            self._profile_thread.failed.connect(self._on_os_profile_failed)
+            self._profile_thread.start()
 
     def start_task(self, task):
         if not self.memory_file:
@@ -1126,6 +1379,8 @@ class MemoryForensicsApp(QWidget):
             return
 
         self._sync_volatility_config_from_ui()
+        self._stop_running_analysis_thread()
+
         cfg = get_volatility_config()
         if cfg["engine"] == "2" and not get_resolved_vol2_script():
             QMessageBox.warning(

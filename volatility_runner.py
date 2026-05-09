@@ -6,6 +6,7 @@ import sys
 import json
 import platform
 import threading
+from collections import OrderedDict
 from functools import lru_cache
 
 from forensics_logging import log_volatility
@@ -18,6 +19,117 @@ _VOL2_PYTHON = ""  # path to python.exe for Vol2 (usually Python 2.7)
 _VOL3_SYMBOL_DIRS = ""
 _LAST_LINUX_RECOVERY = {}
 _RUNTIME_LOG_SINK = None
+
+# Bound concurrent Volatility subprocesses globally (heavy RAM / I/O contention).
+_VOL_SUBPROC_SEM = threading.BoundedSemaphore(max(1, min(4, int(os.environ.get("VOLATILITY_MAX_CONCURRENT", "4")))))
+_ACTIVE_PROC_LOCK = threading.Lock()
+_ACTIVE_PROCESSES = []
+LINUX_VALIDATION_LOCK = threading.Lock()
+
+# Optional fine-grained progress (0–100) per subprocess; WorkerThread sets spans per step.
+_VOL_PROGRESS_LO = 0
+_VOL_PROGRESS_HI = 100
+_STREAM_PROG_LOCK = threading.Lock()
+_STREAM_LINE_COUNT = 0
+
+# LRU-ish session cache: same plugin + dump + engine config ⇒ skip re-invocation within one session.
+_OUTPUT_CACHE_ORDERED = OrderedDict()
+_OUTPUT_CACHE_LIMIT = max(64, min(2048, int(os.environ.get("VOLATILITY_CACHE_MAX", "512"))))
+
+
+def cancel_all_volatility_subprocesses():
+    """Terminate Popen-backed Volatility children (called when user aborts analysis / loads new dump)."""
+    with _ACTIVE_PROC_LOCK:
+        snapshots = list(_ACTIVE_PROCESSES)
+    for p in snapshots:
+        try:
+            if p.poll() is None:
+                p.terminate()
+        except Exception:
+            pass
+
+
+def clear_volatility_output_cache():
+    """Invalidate Volatility stdout cache (e.g. when loading another memory dump)."""
+    global _OUTPUT_CACHE_ORDERED
+    _OUTPUT_CACHE_ORDERED.clear()
+
+
+def clear_preflight_requirements_cache():
+    """Prevent stale LRU preflight keyed to old dump paths."""
+    _preflight_requirements.cache_clear()
+
+
+def set_volatility_progress_span(lo=0, hi=100):
+    """Map streaming line-count progress callbacks into integer percent bucket [lo, hi]."""
+    global _VOL_PROGRESS_LO, _VOL_PROGRESS_HI
+    _VOL_PROGRESS_LO = max(0, min(99, int(lo)))
+    _VOL_PROGRESS_HI = max(_VOL_PROGRESS_LO + 1, min(100, int(hi)))
+
+
+def _emit_stream_progress_increment():
+    global _STREAM_LINE_COUNT
+    with _STREAM_PROG_LOCK:
+        _STREAM_LINE_COUNT += 1
+        ln = _STREAM_LINE_COUNT
+    if _RUNTIME_PROGRESS_THROTTLE and ln % _RUNTIME_PROGRESS_THROTTLE != 0:
+        return
+    span = max(1, _VOL_PROGRESS_HI - _VOL_PROGRESS_LO)
+    frac = min(1.0, ln / 320.0)
+    pct = int(_VOL_PROGRESS_LO + span * frac)
+    pct = max(_VOL_PROGRESS_LO, min(_VOL_PROGRESS_HI, pct))
+    if _VOL_PROGRESS_CALLBACK:
+        try:
+            _VOL_PROGRESS_CALLBACK(pct)
+        except Exception:
+            pass
+
+
+_RUNTIME_PROGRESS_THROTTLE = max(5, min(80, int(os.environ.get("VOLATILITY_PROGRESS_LOG_EVERY_LINES", "15"))))
+_VOL_PROGRESS_CALLBACK = None
+
+
+def set_volatility_progress_callback(cb):
+    """Thread-safe-ish: emit must be queued (e.g. PyQt signal.emit). Callable taking int percent 0–100."""
+    global _VOL_PROGRESS_CALLBACK
+    _VOL_PROGRESS_CALLBACK = cb if callable(cb) else None
+
+
+def _dump_mtime_sig(path):
+    try:
+        st = os.stat(path)
+        return (path, getattr(st, "st_mtime_ns", int(st.st_mtime * 10**9)), st.st_size)
+    except Exception:
+        return (path, 0, 0)
+
+
+def _output_cache_key(memory_file, normalized_plugin, extra_args, os_type):
+    cfg = get_volatility_config()
+    ex = tuple(extra_args or ())
+    sig = (
+        _dump_mtime_sig(memory_file),
+        cfg["engine"],
+        cfg["vol2_profile"],
+        cfg["vol2_script"],
+        cfg["vol2_python"],
+        cfg["vol3_symbol_dirs"],
+    )
+    return (normalized_plugin.lower(), sig, ex, (os_type or "").lower())
+
+
+def _cache_get_output(key):
+    if key not in _OUTPUT_CACHE_ORDERED:
+        return None
+    _OUTPUT_CACHE_ORDERED.move_to_end(key)
+    return _OUTPUT_CACHE_ORDERED[key]
+
+
+def _cache_put_output(key, value):
+    if key in _OUTPUT_CACHE_ORDERED:
+        del _OUTPUT_CACHE_ORDERED[key]
+    _OUTPUT_CACHE_ORDERED[key] = value
+    while len(_OUTPUT_CACHE_ORDERED) > _OUTPUT_CACHE_LIMIT:
+        _OUTPUT_CACHE_ORDERED.popitem(last=False)
 
 # Volatility 2 plugins that typically run without --profile
 _VOL2_PLUGINS_NO_PROFILE = frozenset({"imageinfo", "kdbgscan", "kpcrscan"})
@@ -141,33 +253,51 @@ def _emit_runtime_log(message: str):
 
 
 def _run_streaming_command(cmd, label):
+    global _STREAM_LINE_COUNT
     stdout_lines = []
     stderr_lines = []
+    with _STREAM_PROG_LOCK:
+        _STREAM_LINE_COUNT = 0
     _emit_runtime_log(f"$ {' '.join(cmd)}")
-    process = subprocess.Popen(
-        cmd,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True,
-        bufsize=1,
-        universal_newlines=True,
-    )
+    _VOL_SUBPROC_SEM.acquire()
+    process = None
+    try:
+        process = subprocess.Popen(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            bufsize=1,
+            universal_newlines=True,
+        )
+        with _ACTIVE_PROC_LOCK:
+            _ACTIVE_PROCESSES.append(process)
 
-    def reader(stream, bucket, prefix):
-        for line in iter(stream.readline, ""):
-            clean = line.rstrip("\n")
-            bucket.append(clean)
-            _emit_runtime_log(f"[{label}][{prefix}] {clean}")
-        stream.close()
+        def reader(stream, bucket, prefix):
+            for line in iter(stream.readline, ""):
+                clean = line.rstrip("\n")
+                bucket.append(clean)
+                _emit_runtime_log(f"[{label}][{prefix}] {clean}")
+                _emit_stream_progress_increment()
+            stream.close()
 
-    t_out = threading.Thread(target=reader, args=(process.stdout, stdout_lines, "stdout"), daemon=True)
-    t_err = threading.Thread(target=reader, args=(process.stderr, stderr_lines, "stderr"), daemon=True)
-    t_out.start()
-    t_err.start()
-    process.wait()
-    t_out.join()
-    t_err.join()
-    return process.returncode, "\n".join(stdout_lines).strip(), "\n".join(stderr_lines).strip()
+        t_out = threading.Thread(target=reader, args=(process.stdout, stdout_lines, "stdout"), daemon=True)
+        t_err = threading.Thread(target=reader, args=(process.stderr, stderr_lines, "stderr"), daemon=True)
+        t_out.start()
+        t_err.start()
+        process.wait()
+        t_out.join()
+        t_err.join()
+        rc = process.returncode
+    finally:
+        if process is not None:
+            with _ACTIVE_PROC_LOCK:
+                try:
+                    _ACTIVE_PROCESSES.remove(process)
+                except ValueError:
+                    pass
+        _VOL_SUBPROC_SEM.release()
+    return rc, "\n".join(stdout_lines).strip(), "\n".join(stderr_lines).strip()
 
 
 def _vol3_command():
@@ -285,12 +415,19 @@ def run_volatility(plugin, memory_file, extra_args=None, os_type="windows"):
     if preflight:
         return _sanitize_user_error(preflight, normalized_os)
 
+    cache_key = _output_cache_key(memory_file, normalized_plugin, extra_args, normalized_os)
+    cached = _cache_get_output(cache_key)
+    if cached is not None:
+        _emit_runtime_log(f"[vol-cache hit] {normalized_plugin}")
+        return cached
+
     if cfg["engine"] == "2":
-        return _sanitize_user_error(
-            _run_volatility2(normalized_plugin, memory_file, extra_args, os_type=normalized_os),
-            normalized_os,
-        )
-    return _sanitize_user_error(_run_volatility3(normalized_plugin, memory_file, extra_args), normalized_os)
+        raw_out = _run_volatility2(normalized_plugin, memory_file, extra_args, os_type=normalized_os)
+    else:
+        raw_out = _run_volatility3(normalized_plugin, memory_file, extra_args)
+    out = _sanitize_user_error(raw_out, normalized_os)
+    _cache_put_output(cache_key, out)
+    return out
 
 
 def _normalize_plugin_for_os(plugin: str, os_type: str) -> str:
@@ -726,6 +863,11 @@ def _validate_linux_context(memory_file: str) -> str:
     - validate symbol repository presence and likely symbol match
     - verify kernel layer/symbol table creation using linux.pslist
     """
+    with LINUX_VALIDATION_LOCK:
+        return _validate_linux_context_locked(memory_file)
+
+
+def _validate_linux_context_locked(memory_file: str) -> str:
     banner_probe = _run_volatility3("banners.Banners", memory_file, [])
     kernel_version = _extract_linux_kernel_version(banner_probe)
     symbol_dirs = _resolved_symbol_dirs()

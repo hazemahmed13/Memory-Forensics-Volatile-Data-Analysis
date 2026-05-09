@@ -1875,3 +1875,63 @@ Progress:   66.67		Updating caches for 3 files...
 
 Progress:  100.00		Stacking attempts finished    
 Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-09 22:05:29,803 [WARNING] plugin=windows.info.Info dump=C:\Users\hazem\OneDrive\Desktop\memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:   23.33		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished               
+
+Progress:  100.00		PDB scanning finished                    
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 22:05:33,868 [WARNING] plugin=windows.info.Info dump=C:\Users\hazem\OneDrive\Desktop\memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:   23.33		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished               
+
+Progress:  100.00		PDB scanning finished                    
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 22:06:41,467 [WARNING] plugin=mac.pslist.PsList dump=C:\Users\hazem\OneDrive\Desktop\memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-09 22:06:42,495 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:\Users\hazem\OneDrive\Desktop\memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
