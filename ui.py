@@ -32,6 +32,10 @@ from yara_scan import format_yara_matches, scan_memory
 from os_profile import detect_os_profile
 from report_export import build_report, export_report_json, export_report_txt, export_report_html
 from volatility_runner import (
+    get_environment_compatibility,
+    generate_linux_symbols_for_dump,
+    get_backend_health,
+    get_symbol_diagnostics,
     get_resolved_vol2_script,
     get_volatility_config,
     run_volatility,
@@ -148,6 +152,7 @@ class MemoryForensicsApp(QWidget):
         self.label = QLabel("No memory file selected")
         self.status = QLabel("Status: Idle")
         self.report_folder_label = QLabel("Reports folder: next to memory dump")
+        self.health_label = QLabel("Backend health: checking…")
 
         self.tabs = QTabWidget()
         self.process_tab = QTextEdit()
@@ -178,8 +183,13 @@ class MemoryForensicsApp(QWidget):
         self.btn_load = QPushButton("Load Memory Dump")
         self.btn_export = QPushButton("Export Report (JSON + TXT + HTML)")
         self.btn_report_folder = QPushButton("Set report folder…")
+        self.btn_health = QPushButton("Refresh Backend Health")
+        self.btn_generate_symbols = QPushButton("Generate Linux Symbols")
+        self.btn_check_env = QPushButton("Check Environment Compatibility")
         self.os_selector = QComboBox()
         self.os_selector.addItems(["windows", "linux", "mac"])
+        self.os_selector.setEnabled(False)
+        self.os_selector.setToolTip("OS is detected automatically from memory image.")
 
         self.engine_combo = QComboBox()
         self.engine_combo.addItem("Volatility 3 (vol)", "3")
@@ -196,6 +206,11 @@ class MemoryForensicsApp(QWidget):
             "Python for Vol 2 — e.g. …\\Python27\\python.exe (official vol.py is Python 2)"
         )
         self.btn_browse_vol2_python = QPushButton("Browse python.exe…")
+        self.vmlinux_path_edit = QLineEdit()
+        self.vmlinux_path_edit.setPlaceholderText("Linux vmlinux path (optional, for symbol generation)")
+        self.btn_browse_vmlinux = QPushButton("Browse vmlinux…")
+        self.wsl_path_edit = QLineEdit()
+        self.wsl_path_edit.setPlaceholderText("Optional WSL executable path (wsl.exe)")
         self.btn_vol2_imageinfo = QPushButton("Run imageinfo (Vol 2)…")
         self.btn_vol2_imageinfo.setToolTip(
             "Runs imageinfo without a profile so you can copy a Suggested Profile (e.g. Win7SP1x64)."
@@ -227,8 +242,12 @@ class MemoryForensicsApp(QWidget):
         ]
         secondary_buttons = [
             self.btn_report_folder,
+            self.btn_health,
+            self.btn_generate_symbols,
+            self.btn_check_env,
             self.btn_browse_vol2,
             self.btn_browse_vol2_python,
+            self.btn_browse_vmlinux,
         ]
         for button in primary_buttons:
             button.setProperty("variant", "primary")
@@ -254,6 +273,9 @@ class MemoryForensicsApp(QWidget):
             self.vol2_python_edit,
             self.btn_browse_vol2_python,
             self.btn_vol2_imageinfo,
+            self.vmlinux_path_edit,
+            self.btn_browse_vmlinux,
+            self.wsl_path_edit,
         ]
 
         layout = QVBoxLayout()
@@ -263,12 +285,16 @@ class MemoryForensicsApp(QWidget):
         layout.addWidget(self.label)
         layout.addWidget(self.status)
         layout.addWidget(self.report_folder_label)
+        layout.addWidget(self.health_label)
 
         action_row = QHBoxLayout()
         action_row.setSpacing(8)
         action_row.addWidget(self.btn_load)
         action_row.addWidget(self.btn_report_folder)
         action_row.addWidget(self.btn_export)
+        action_row.addWidget(self.btn_health)
+        action_row.addWidget(self.btn_generate_symbols)
+        action_row.addWidget(self.btn_check_env)
         action_row.addStretch()
         layout.addLayout(action_row)
 
@@ -276,7 +302,7 @@ class MemoryForensicsApp(QWidget):
         config_sep.setFrameShape(QFrame.HLine)
         layout.addWidget(config_sep)
 
-        layout.addWidget(QLabel("Target OS"))
+        layout.addWidget(QLabel("Target OS (auto-detected)"))
         layout.addWidget(self.os_selector)
         layout.addWidget(QLabel("Volatility engine"))
         layout.addWidget(self.engine_combo)
@@ -293,6 +319,13 @@ class MemoryForensicsApp(QWidget):
         layout.addLayout(row_py2)
         layout.addWidget(self.btn_vol2_imageinfo)
         layout.addWidget(self.vol2_hint)
+        layout.addWidget(QLabel("Linux vmlinux path (for symbol generation)"))
+        row_vm = QHBoxLayout()
+        row_vm.addWidget(self.vmlinux_path_edit)
+        row_vm.addWidget(self.btn_browse_vmlinux)
+        layout.addLayout(row_vm)
+        layout.addWidget(QLabel("WSL executable path (optional)"))
+        layout.addWidget(self.wsl_path_edit)
 
         analyze_sep = QFrame()
         analyze_sep.setFrameShape(QFrame.HLine)
@@ -324,6 +357,9 @@ class MemoryForensicsApp(QWidget):
         self.btn_load.clicked.connect(self.load_file)
         self.btn_export.clicked.connect(self.export_report)
         self.btn_report_folder.clicked.connect(self.pick_report_folder)
+        self.btn_health.clicked.connect(self.refresh_backend_health)
+        self.btn_generate_symbols.clicked.connect(self.generate_linux_symbols)
+        self.btn_check_env.clicked.connect(self.check_environment_compatibility)
         self.btn_full.clicked.connect(lambda: self.start_task("full"))
         self.btn_process.clicked.connect(lambda: self.start_task("process"))
         self.btn_injection.clicked.connect(lambda: self.start_task("injection"))
@@ -332,7 +368,9 @@ class MemoryForensicsApp(QWidget):
         self.btn_yara.clicked.connect(lambda: self.start_task("yara"))
         self.btn_browse_vol2.clicked.connect(self.browse_vol2_script)
         self.btn_browse_vol2_python.clicked.connect(self.browse_vol2_python)
+        self.btn_browse_vmlinux.clicked.connect(self.browse_vmlinux)
         self.btn_vol2_imageinfo.clicked.connect(self.run_vol2_imageinfo)
+        self.refresh_backend_health()
 
     def _apply_theme(self):
         self.setStyleSheet(
@@ -547,6 +585,77 @@ class MemoryForensicsApp(QWidget):
             vol2_script=self.vol2_script_edit.text().strip(),
             vol2_python=self.vol2_python_edit.text().strip(),
         )
+        vm = self.vmlinux_path_edit.text().strip()
+        if vm:
+            os.environ["VOLATILITY_LINUX_VMLINUX"] = vm
+        wsl_path = self.wsl_path_edit.text().strip()
+        if wsl_path:
+            os.environ["VOLATILITY_WSL_PATH"] = wsl_path
+        self.refresh_backend_health()
+
+    def refresh_backend_health(self):
+        health = get_backend_health()
+        env = get_environment_compatibility()
+        self.btn_generate_symbols.setEnabled(env.get("linux_symbol_generation_supported", False))
+        if not env.get("linux_symbol_generation_supported", False):
+            self.btn_generate_symbols.setToolTip(
+                "Requires Linux environment or WSL2 with Linux tools."
+            )
+        else:
+            self.btn_generate_symbols.setToolTip("")
+        if health.get("status") == "healthy":
+            self.health_label.setText(
+                f"Backend health: healthy | symbols={health.get('symbol_json_count', 0)} | vol3={health.get('vol3_command', 'n/a')}"
+            )
+        else:
+            issues = health.get("issues", [])
+            issue_text = " ; ".join(issues[:2]) if issues else "check backend configuration"
+            self.health_label.setText(f"Backend health: warning | {issue_text}")
+
+    def generate_linux_symbols(self):
+        env = get_environment_compatibility()
+        if env.get("is_windows") and not env.get("wsl_available"):
+            QMessageBox.warning(
+                self,
+                "Generate Linux Symbols",
+                "This feature requires Linux kernel symbol extraction tools (dwarf2json + vmlinux).\n"
+                "Please enable WSL2 or switch to Linux environment to continue.",
+            )
+            return
+        if not self.memory_file:
+            QMessageBox.information(self, "Generate Linux Symbols", "Load a memory dump first.")
+            return
+        detected_os = self.last_profile.get("guessed_os", self.os_selector.currentText())
+        if detected_os != "linux":
+            QMessageBox.information(
+                self,
+                "Generate Linux Symbols",
+                "Current dump is not detected as Linux. Load a Linux memory dump to use this action.",
+            )
+            return
+        self.status.setText("Generating Linux symbols…")
+        result = generate_linux_symbols_for_dump(self.memory_file)
+        self.refresh_backend_health()
+        if result.get("ok"):
+            self.status.setText("Linux symbols ready ✅")
+            QMessageBox.information(self, "Generate Linux Symbols", result.get("message", "Completed."))
+        else:
+            self.status.setText("Linux symbol generation failed")
+            QMessageBox.warning(self, "Generate Linux Symbols", result.get("message", "Failed."))
+
+    def check_environment_compatibility(self):
+        env = get_environment_compatibility()
+        lines = [
+            f"Host OS: {env.get('host')}",
+            f"Windows host: {env.get('is_windows')}",
+            f"WSL available: {env.get('wsl_available')}",
+            f"WSL path: {env.get('wsl_path') or 'not found'}",
+            f"dwarf2json: {env.get('dwarf2json_path') or 'not found'}",
+            f"vmlinux candidates: {len(env.get('vmlinux_candidates', []))}",
+            "Linux symbol generation support: "
+            + ("yes" if env.get("linux_symbol_generation_supported") else "no"),
+        ]
+        QMessageBox.information(self, "Environment Compatibility", "\n".join(lines))
 
     def browse_vol2_script(self):
         path, _ = QFileDialog.getOpenFileName(
@@ -567,6 +676,16 @@ class MemoryForensicsApp(QWidget):
         )
         if path:
             self.vol2_python_edit.setText(path)
+
+    def browse_vmlinux(self):
+        path, _ = QFileDialog.getOpenFileName(
+            self,
+            "Select Linux vmlinux debug image",
+            "",
+            "All files (*.*)",
+        )
+        if path:
+            self.vmlinux_path_edit.setText(path)
 
     def _set_busy(self, busy):
         self.btn_load.setEnabled(not busy)
@@ -591,7 +710,12 @@ class MemoryForensicsApp(QWidget):
             )
             return
 
-        file_path, _ = QFileDialog.getOpenFileName(self, "Select Memory Dump")
+        file_path, _ = QFileDialog.getOpenFileName(
+            self,
+            "Select Memory Dump",
+            "",
+            "Memory dumps (*.lime *.raw *.dump *.dmp);;All files (*.*)",
+        )
         if file_path:
             self.memory_file = file_path
             self.completed_tasks.clear()
@@ -622,7 +746,8 @@ class MemoryForensicsApp(QWidget):
 
         self._set_busy(True)
         self.thread = WorkerThread(task, self.memory_file)
-        self.thread.set_os_type(self.os_selector.currentText())
+        detected_os = self.last_profile.get("guessed_os", self.os_selector.currentText())
+        self.thread.set_os_type(detected_os)
         self.thread.progress.connect(self.status.setText)
         self.thread.step_done.connect(self.show_result)
         self.thread.all_done.connect(self._analysis_finished)
@@ -637,12 +762,13 @@ class MemoryForensicsApp(QWidget):
 
         if task == "process":
             self.process_tab.setPlainText(result)
-            self.last_process_records = get_process_records(self.memory_file, os_type=self.os_selector.currentText())
+            detected_os = self.last_profile.get("guessed_os", self.os_selector.currentText())
+            self.last_process_records = get_process_records(self.memory_file, os_type=detected_os)
             self.last_process_tree_records = get_process_tree_records(
-                self.memory_file, os_type=self.os_selector.currentText()
+                self.memory_file, os_type=detected_os
             )
-            self.last_thread_records = get_thread_records(self.memory_file, os_type=self.os_selector.currentText())
-            self.last_dll_records = get_dll_records(self.memory_file, os_type=self.os_selector.currentText())
+            self.last_thread_records = get_thread_records(self.memory_file, os_type=detected_os)
+            self.last_dll_records = get_dll_records(self.memory_file, os_type=detected_os)
             self.process_deep_tab.setPlainText(self._format_process_deep_dive())
 
         elif task == "injection":
@@ -654,8 +780,9 @@ class MemoryForensicsApp(QWidget):
 
         elif task == "network":
             self.network_tab.setPlainText(result)
+            detected_os = self.last_profile.get("guessed_os", self.os_selector.currentText())
             self.last_connection_records = get_connection_records(
-                self.memory_file, os_type=self.os_selector.currentText()
+                self.memory_file, os_type=detected_os
             )
 
         elif task == "secrets":
@@ -712,6 +839,10 @@ class MemoryForensicsApp(QWidget):
         if rp:
             vol_meta["vol2_script_resolved"] = rp
         vol_meta["volatility3_status"] = volatility_engine_status()
+        detected_os = self.last_profile.get("guessed_os", self.os_selector.currentText())
+        vol_meta["symbol_diagnostics"] = get_symbol_diagnostics(
+            self.memory_file, detected_os
+        )
 
         report = build_report(
             memory_file=self.memory_file,

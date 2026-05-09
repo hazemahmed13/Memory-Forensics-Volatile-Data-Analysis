@@ -116,3 +116,1125 @@ Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name
 2026-05-07 19:32:09,481 [WARNING] plugin=windows.strings dump=D:/MemoryDump_Lab1.raw rc=2 stderr=usage: vol.EXE windows.strings.Strings [-h] [--pid [PID ...]] --strings-file
                                        STRINGS_FILE
 vol.EXE windows.strings.Strings: error: the following arguments are required: --strings-file
+2026-05-07 20:51:06,343 [WARNING] plugin=linux.banner dump=D:/MemoryDump_Lab1.raw rc=2 stderr=usage: vol.EXE [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.EXE: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-07 20:51:07,240 [WARNING] plugin=linux.bash dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Bash.kernel.layer_name', 'plugins.Bash.kernel.symbol_table_name']
+2026-05-07 20:51:07,909 [WARNING] plugin=mac.banner dump=D:/MemoryDump_Lab1.raw rc=2 stderr=usage: vol.EXE [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.EXE: error: argument PLUGIN: invalid choice mac.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linux.
+2026-05-07 20:51:08,767 [WARNING] plugin=mac.ifconfig dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-07 20:51:50,113 [WARNING] plugin=windows.strings dump=D:/MemoryDump_Lab1.raw rc=2 stderr=usage: vol.EXE windows.strings.Strings [-h] [--pid [PID ...]] --strings-file
+                                       STRINGS_FILE
+vol.EXE windows.strings.Strings: error: the following arguments are required: --strings-file
+2026-05-08 15:05:26,431 [WARNING] plugin=linux.banner dump=D:/MemoryDump_Lab1.raw rc=2 stderr=usage: vol.EXE [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.EXE: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 15:05:27,293 [WARNING] plugin=linux.bash dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Bash.kernel.layer_name', 'plugins.Bash.kernel.symbol_table_name']
+2026-05-08 15:05:27,955 [WARNING] plugin=mac.banner dump=D:/MemoryDump_Lab1.raw rc=2 stderr=usage: vol.EXE [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.EXE: error: argument PLUGIN: invalid choice mac.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linux.
+2026-05-08 15:05:28,790 [WARNING] plugin=mac.ifconfig dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-08 15:06:56,764 [WARNING] plugin=v2:threads dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Volatility Foundation Volatility Framework 2.6.1
+ERROR   : volatility.debug    : You must specify something to do (try -h)
+2026-05-08 15:07:04,341 [WARNING] plugin=v2:strings dump=D:/MemoryDump_Lab1.raw rc=1 stderr=Volatility Foundation Volatility Framework 2.6.1
+ERROR   : volatility.debug    : Strings file not found
+2026-05-08 15:36:18,679 [WARNING] plugin=linux.banner dump=C:/Users/hazem/Downloads/temp_extract_dir/memory.dmp rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 15:36:19,777 [WARNING] plugin=linux.bash dump=C:/Users/hazem/Downloads/temp_extract_dir/memory.dmp rc=1 stderr=Progress:    0.00		Updating caches for 1 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.Bash.kernel.layer_name', 'plugins.Bash.kernel.symbol_table_name']
+2026-05-08 15:36:20,435 [WARNING] plugin=mac.banner dump=C:/Users/hazem/Downloads/temp_extract_dir/memory.dmp rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice mac.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linux.
+2026-05-08 15:36:21,329 [WARNING] plugin=mac.ifconfig dump=C:/Users/hazem/Downloads/temp_extract_dir/memory.dmp rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-08 15:39:42,340 [WARNING] plugin=windows.strings dump=C:/Users/hazem/Downloads/temp_extract_dir/memory.dmp rc=2 stderr=usage: vol.exe windows.strings.Strings [-h] [--pid [PID ...]] --strings-file
+                                       STRINGS_FILE
+vol.exe windows.strings.Strings: error: the following arguments are required: --strings-file
+2026-05-08 20:12:48,225 [WARNING] plugin=windows.info dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 20:12:48,954 [WARNING] plugin=windows.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice windows.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, li
+2026-05-08 20:12:50,405 [WARNING] plugin=linux.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 20:12:51,300 [WARNING] plugin=linux.bash dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Bash.kernel.layer_name', 'plugins.Bash.kernel.symbol_table_name']
+2026-05-08 20:12:51,967 [WARNING] plugin=mac.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice mac.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linux.
+2026-05-08 20:12:52,878 [WARNING] plugin=mac.ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-08 20:13:04,410 [WARNING] plugin=linux.pslist dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:13:05,214 [WARNING] plugin=linux.psscan dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsScan.kernel.layer_name', 'plugins.PsScan.kernel.symbol_table_name']
+2026-05-08 20:13:06,068 [WARNING] plugin=linux.pslist dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:13:06,883 [WARNING] plugin=linux.psscan dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsScan.kernel.layer_name', 'plugins.PsScan.kernel.symbol_table_name']
+2026-05-08 20:13:07,050 [WARNING] plugin=linux.malfind dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Malfind.kernel.layer_name', 'plugins.Malfind.kernel.symbol_table_name']
+2026-05-08 20:13:07,718 [WARNING] plugin=linux.netstat dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.netstat (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:13:07,760 [WARNING] plugin=linux.pstree dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsTree.kernel.layer_name', 'plugins.PsTree.kernel.symbol_table_name']
+2026-05-08 20:13:08,626 [WARNING] plugin=linux.pslist dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:13:09,081 [WARNING] plugin=linux.sockstat dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Sockstat.kernel.layer_name', 'plugins.Sockstat.kernel.symbol_table_name']
+2026-05-08 20:13:09,502 [WARNING] plugin=linux.pslist dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:13:09,941 [WARNING] plugin=linux.bash dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Bash.kernel.layer_name', 'plugins.Bash.kernel.symbol_table_name']
+2026-05-08 20:13:10,364 [WARNING] plugin=linux.elfs dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Elfs.kernel.layer_name', 'plugins.Elfs.kernel.symbol_table_name']
+2026-05-08 20:13:10,791 [WARNING] plugin=linux.envars dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Envars.kernel.layer_name', 'plugins.Envars.kernel.symbol_table_name']
+2026-05-08 20:13:11,288 [WARNING] plugin=linux.lsof dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Lsof.kernel.layer_name', 'plugins.Lsof.kernel.symbol_table_name']
+2026-05-08 20:13:12,773 [WARNING] plugin=linux.netstat dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.netstat (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:13:14,638 [WARNING] plugin=linux.sockstat dump=C:/Users/hazem/OneDrive/Desktop/memdump.lime rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Sockstat.kernel.layer_name', 'plugins.Sockstat.kernel.symbol_table_name']
+2026-05-08 20:14:47,982 [WARNING] plugin=windows.info dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 20:14:48,712 [WARNING] plugin=windows.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice windows.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, li
+2026-05-08 20:14:49,528 [WARNING] plugin=linux.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 20:14:50,408 [WARNING] plugin=linux.bash dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Bash.kernel.layer_name', 'plugins.Bash.kernel.symbol_table_name']
+2026-05-08 20:14:51,108 [WARNING] plugin=mac.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice mac.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linux.
+2026-05-08 20:14:52,010 [WARNING] plugin=mac.ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-08 20:14:59,939 [WARNING] plugin=linux.pslist dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:15:00,873 [WARNING] plugin=linux.psscan dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsScan.kernel.layer_name', 'plugins.PsScan.kernel.symbol_table_name']
+2026-05-08 20:15:01,938 [WARNING] plugin=linux.pslist dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:15:01,968 [WARNING] plugin=linux.malfind dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Malfind.kernel.layer_name', 'plugins.Malfind.kernel.symbol_table_name']
+2026-05-08 20:15:02,723 [WARNING] plugin=linux.netstat dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.netstat (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:15:02,900 [WARNING] plugin=linux.psscan dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsScan.kernel.layer_name', 'plugins.PsScan.kernel.symbol_table_name']
+2026-05-08 20:15:03,703 [WARNING] plugin=linux.sockstat dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Sockstat.kernel.layer_name', 'plugins.Sockstat.kernel.symbol_table_name']
+2026-05-08 20:15:03,893 [WARNING] plugin=linux.pstree dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsTree.kernel.layer_name', 'plugins.PsTree.kernel.symbol_table_name']
+2026-05-08 20:15:04,755 [WARNING] plugin=linux.bash dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Bash.kernel.layer_name', 'plugins.Bash.kernel.symbol_table_name']
+2026-05-08 20:15:04,927 [WARNING] plugin=linux.pslist dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:15:05,666 [WARNING] plugin=linux.envars dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Envars.kernel.layer_name', 'plugins.Envars.kernel.symbol_table_name']
+2026-05-08 20:15:05,944 [WARNING] plugin=linux.pslist dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:15:07,838 [WARNING] plugin=linux.elfs dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Elfs.kernel.layer_name', 'plugins.Elfs.kernel.symbol_table_name']
+2026-05-08 20:15:09,688 [WARNING] plugin=linux.lsof dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Lsof.kernel.layer_name', 'plugins.Lsof.kernel.symbol_table_name']
+2026-05-08 20:15:11,346 [WARNING] plugin=linux.netstat dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.netstat (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:15:13,113 [WARNING] plugin=linux.sockstat dump=C:/Users/hazem/OneDrive/Desktop/memdump.dump rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Sockstat.kernel.layer_name', 'plugins.Sockstat.kernel.symbol_table_name']
+2026-05-08 20:16:29,193 [WARNING] plugin=windows.info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 20:16:29,826 [WARNING] plugin=windows.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice windows.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, li
+2026-05-08 20:16:30,477 [WARNING] plugin=linux.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 20:16:31,285 [WARNING] plugin=linux.bash dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Bash.kernel.layer_name', 'plugins.Bash.kernel.symbol_table_name']
+2026-05-08 20:16:31,936 [WARNING] plugin=mac.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice mac.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linux.
+2026-05-08 20:16:32,741 [WARNING] plugin=mac.ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-08 20:16:41,114 [WARNING] plugin=linux.pslist dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:16:41,933 [WARNING] plugin=linux.psscan dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsScan.kernel.layer_name', 'plugins.PsScan.kernel.symbol_table_name']
+2026-05-08 20:16:42,794 [WARNING] plugin=linux.malfind dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Malfind.kernel.layer_name', 'plugins.Malfind.kernel.symbol_table_name']
+2026-05-08 20:16:42,802 [WARNING] plugin=linux.pslist dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:16:43,459 [WARNING] plugin=linux.netstat dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.netstat (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:16:43,626 [WARNING] plugin=linux.psscan dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsScan.kernel.layer_name', 'plugins.PsScan.kernel.symbol_table_name']
+2026-05-08 20:16:44,335 [WARNING] plugin=linux.sockstat dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Sockstat.kernel.layer_name', 'plugins.Sockstat.kernel.symbol_table_name']
+2026-05-08 20:16:44,493 [WARNING] plugin=linux.pstree dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsTree.kernel.layer_name', 'plugins.PsTree.kernel.symbol_table_name']
+2026-05-08 20:16:45,204 [WARNING] plugin=linux.bash dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Bash.kernel.layer_name', 'plugins.Bash.kernel.symbol_table_name']
+2026-05-08 20:16:45,356 [WARNING] plugin=linux.pslist dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:16:46,026 [WARNING] plugin=linux.envars dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Envars.kernel.layer_name', 'plugins.Envars.kernel.symbol_table_name']
+2026-05-08 20:16:46,224 [WARNING] plugin=linux.pslist dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:16:48,034 [WARNING] plugin=linux.elfs dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Elfs.kernel.layer_name', 'plugins.Elfs.kernel.symbol_table_name']
+2026-05-08 20:16:49,674 [WARNING] plugin=linux.lsof dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Lsof.kernel.layer_name', 'plugins.Lsof.kernel.symbol_table_name']
+2026-05-08 20:16:51,176 [WARNING] plugin=linux.netstat dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.netstat (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:16:53,071 [WARNING] plugin=linux.sockstat dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Sockstat.kernel.layer_name', 'plugins.Sockstat.kernel.symbol_table_name']
+2026-05-08 20:23:39,895 [WARNING] plugin=windows.info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 20:23:41,093 [WARNING] plugin=windows.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice windows.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, li
+2026-05-08 20:23:42,359 [WARNING] plugin=linux.banners dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banners (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:23:43,680 [WARNING] plugin=linux.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 20:23:44,957 [WARNING] plugin=linux.banners dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banners (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:23:46,340 [WARNING] plugin=linux.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 20:23:47,677 [WARNING] plugin=linux.banners dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banners (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:23:49,165 [WARNING] plugin=linux.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 20:23:50,778 [WARNING] plugin=mac.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice mac.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linux.
+2026-05-08 20:23:52,806 [WARNING] plugin=mac.ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-08 20:23:56,192 [WARNING] plugin=linux.banners dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banners (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:23:58,245 [WARNING] plugin=linux.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 20:24:00,400 [WARNING] plugin=linux.banners dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banners (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:24:01,338 [WARNING] plugin=linux.banners dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banners (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:24:01,602 [WARNING] plugin=linux.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 20:24:03,332 [WARNING] plugin=linux.banners dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banners (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:24:03,914 [WARNING] plugin=linux.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 20:24:04,753 [WARNING] plugin=linux.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 20:24:06,155 [WARNING] plugin=linux.banners dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banners (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:24:06,318 [WARNING] plugin=linux.banners dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banners (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:24:07,627 [WARNING] plugin=linux.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 20:24:07,789 [WARNING] plugin=linux.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 20:24:09,168 [WARNING] plugin=linux.banners dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banners (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:24:09,324 [WARNING] plugin=linux.banners dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banners (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:24:10,757 [WARNING] plugin=linux.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 20:24:10,891 [WARNING] plugin=linux.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 20:24:12,355 [WARNING] plugin=linux.banners dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banners (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, lin
+2026-05-08 20:24:14,171 [WARNING] plugin=linux.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice linux.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linu
+2026-05-08 20:27:00,825 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 20:27:01,729 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 20:27:21,520 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:27:50,342 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 20:27:51,273 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 20:28:11,293 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:28:31,815 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:28:32,501 [WARNING] plugin=mac.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice mac.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linux.
+2026-05-08 20:28:33,302 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-08 20:29:03,207 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:29:22,719 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:29:22,822 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:29:42,285 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:29:42,370 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:30:02,011 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:30:02,167 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:30:21,627 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:30:41,443 [WARNING] plugin=linux.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:34:16,785 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 20:34:17,663 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 20:34:57,286 [WARNING] plugin=mac.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice mac.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linux.
+2026-05-08 20:34:58,261 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-08 20:39:02,877 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 20:39:03,868 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 20:39:41,650 [WARNING] plugin=mac.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice mac.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linux.
+2026-05-08 20:39:42,529 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-08 20:45:03,747 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 20:45:04,684 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 20:45:42,836 [WARNING] plugin=mac.banner dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=2 stderr=usage: vol.exe [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+               [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+               [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+               [--save-config SAVE_CONFIG] [--clear-cache]
+               [--cache-path CACHE_PATH] [--offline | -u URL]
+               [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+               [-r RENDERER] [--single-location SINGLE_LOCATION]
+               [--stackers [STACKERS ...]]
+               [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+               PLUGIN ...
+vol.exe: error: argument PLUGIN: invalid choice mac.banner (choose from banners.Banners, configwriter.ConfigWriter, frameworkinfo.FrameworkInfo, isfinfo.IsfInfo, layerwriter.LayerWriter, linux.
+2026-05-08 20:45:44,104 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-08 20:57:02,013 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 20:57:02,907 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 20:57:40,673 [WARNING] plugin=mac.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 20:57:41,506 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-08 21:08:56,094 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 21:08:57,012 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 21:09:35,904 [WARNING] plugin=mac.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 21:09:36,752 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-08 21:11:02,410 [WARNING] plugin=linux.isf.generate dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw Linux symbol generation failed (dwarf2json_not_found). Requires matching vmlinux and dwarf2json.
+2026-05-08 21:12:55,976 [WARNING] plugin=linux.isf.generate dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw Linux symbol generation failed (dwarf2json_not_found). Requires matching vmlinux and dwarf2json.
+2026-05-08 21:15:34,313 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 21:15:35,236 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 21:16:13,991 [WARNING] plugin=mac.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 21:16:14,823 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-08 21:16:36,430 [WARNING] plugin=linux.isf.generate dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw dwarf2json tool was not found. Install it or set VOLATILITY_DWARF2JSON to its full path (for example: C:\tools\dwarf2json.exe).
+2026-05-08 21:19:16,520 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 21:19:17,461 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 21:19:55,617 [WARNING] plugin=mac.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 21:19:56,418 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-08 21:26:07,826 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 21:26:08,740 [WARNING] plugin=windows.info.Info dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:   23.33		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:    0.00		Scanning LimeLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished             
+
+Progress:  100.00		PDB scanning finished                  
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-08 21:26:47,242 [WARNING] plugin=mac.pslist.PsList dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-08 21:26:48,171 [WARNING] plugin=mac.ifconfig.Ifconfig dump=C:/Users/hazem/OneDrive/Desktop/memdump.raw rc=1 stderr=Progress:  100.00		Stacking attempts finished
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']

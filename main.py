@@ -16,6 +16,7 @@ from process_analysis import (
 from report_export import build_report, export_report_json, export_report_txt, export_report_html
 from secrets_analysis import detect_keys_and_credentials
 from volatility_runner import (
+    get_symbol_diagnostics,
     get_resolved_vol2_script,
     get_volatility_config,
     set_volatility_config,
@@ -33,6 +34,7 @@ def run_cli():
     vol2_profile = ""
     vol2_script = ""
     vol2_python = ""
+    vol3_symbol_dirs = ""
     if eng in ("2", "vol2", "volatility2"):
         vol2_script = input("Path to Volatility 2 vol.py: ").strip()
         vol2_profile = input(
@@ -41,9 +43,17 @@ def run_cli():
         vol2_python = input(
             "Path to Python 2.7 python.exe for vol.py (required for official Vol2; or leave empty if VOLATILITY2_PYTHON is set): "
         ).strip()
+    else:
+        vol3_symbol_dirs = input(
+            "Volatility 3 symbol dirs (optional; sep by ';' or ','; or use VOLATILITY_SYMBOL_DIRS): "
+        ).strip()
 
     set_volatility_config(
-        engine=eng, vol2_profile=vol2_profile, vol2_script=vol2_script, vol2_python=vol2_python
+        engine=eng,
+        vol2_profile=vol2_profile,
+        vol2_script=vol2_script,
+        vol2_python=vol2_python,
+        vol3_symbol_dirs=vol3_symbol_dirs,
     )
 
     if not volatility_any_backend_ok():
@@ -62,7 +72,8 @@ def run_cli():
     guessed = profile["guessed_os"]
     print(f"[+] Auto-detected OS profile: {guessed} (confidence: {profile['confidence']})")
 
-    os_type = input(f"Target OS [windows/linux/mac] (default {guessed}): ").strip().lower() or guessed
+    os_type = guessed
+    print(f"[+] Analysis profile selected automatically: {os_type}")
 
     print("\n[+] Processes:")
     process_raw = get_processes(memory_file, os_type=os_type)
@@ -106,6 +117,7 @@ def run_cli():
         if rp:
             vol_meta["vol2_script_resolved"] = rp
         vol_meta["volatility3_status"] = volatility_engine_status()
+        vol_meta["symbol_diagnostics"] = get_symbol_diagnostics(memory_file, os_type)
 
         report = build_report(
             memory_file=memory_file,
