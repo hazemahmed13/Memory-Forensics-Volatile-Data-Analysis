@@ -1935,3 +1935,971 @@ Progress:   66.67		Updating caches for 3 files...
 
 Progress:  100.00		Stacking attempts finished    
 Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-09 22:49:50,497 [WARNING] plugin=windows.info.Info dump=C:\Users\hazem\OneDrive\Desktop\memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:   23.33		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished               
+
+Progress:  100.00		PDB scanning finished                    
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-09 22:49:54,687 [WARNING] plugin=windows.info.Info dump=C:\Users\hazem\OneDrive\Desktop\memory.vmem rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:   23.33		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:    0.00		Scanning VmwareLayer using PageMapScanner
+
+Progress:  100.00		Stacking attempts finished               
+
+Progress:  100.00		PDB scanning finished                    
+Unable to validate the plugin requirements: ['plugins.Info.kernel.layer_name', 'plugins.Info.kernel.symbol_table_name']
+2026-05-10 00:05:12,667 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:05:12,697 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-10 00:05:15,034 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:05:24,470 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:05:24,496 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-10 00:05:26,892 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:05:27,868 [WARNING] plugin=mac.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-10 00:05:28,853 [WARNING] plugin=mac.ifconfig.Ifconfig dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-10 00:05:36,538 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:05:36,566 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-10 00:05:39,054 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:06:23,973 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:06:24,001 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-10 00:06:26,414 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:06:35,946 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:06:35,971 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-10 00:06:38,309 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:06:47,809 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:06:47,839 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-10 00:06:50,467 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:06:51,499 [WARNING] plugin=mac.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.PsList.kernel.layer_name', 'plugins.PsList.kernel.symbol_table_name']
+2026-05-10 00:06:52,510 [WARNING] plugin=mac.ifconfig.Ifconfig dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:  100.00		Stacking attempts finished    
+Unable to validate the plugin requirements: ['plugins.Ifconfig.kernel.layer_name', 'plugins.Ifconfig.kernel.symbol_table_name']
+2026-05-10 00:07:00,002 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:07:00,034 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-10 00:07:02,491 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:07:12,059 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:07:12,087 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-10 00:07:14,626 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:07:24,244 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:07:24,269 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-10 00:07:26,688 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:07:36,185 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:07:36,214 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-10 00:07:38,707 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:07:48,177 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:07:48,207 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-10 00:07:50,581 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:07:59,883 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:07:59,911 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-10 00:08:02,470 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:08:11,952 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:08:11,979 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-10 00:08:14,349 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:08:23,821 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:08:23,849 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-10 00:08:26,301 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:08:35,839 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 00:08:35,863 [WARNING] plugin=linux.isf.autogen dump=C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json rc=1 stderr=Failed linux processing: could not open C:\Users\hazem\OneDrive\Desktop\Ubuntu22.04.6.5.0-41-generic.json: bad magic number '[123 10 32 32]' in record at byte 0x0
+2026-05-10 00:08:38,286 [WARNING] plugin=linux.pslist.PsList dump=D:\MemoryDump_Lab2.raw rc=1 stderr=Progress:    0.00		Updating caches for 3 files...
+
+Progress:   33.33		Updating caches for 3 files...
+
+Progress:   66.67		Updating caches for 3 files...
+
+Progress:    0.00		Scanning FileLayer using BytesScanner
+
+Progress:    1.56		Scanning FileLayer using BytesScanner
+
+Progress:    3.13		Scanning FileLayer using BytesScanner
+
+Progress:    4.69		Scanning FileLayer using BytesScanner
+
+Progress:    6.25		Scanning FileLayer using BytesScanner
+
+Progress:    7.81		Scanning FileLayer using BytesScanner
+
+Progress:    9.38		Scanning FileLayer using BytesScanner
+
+Progress:   10.94		Scanning FileLayer using BytesScanner
+
+Progress:   12.50		Scanning FileLayer using BytesScanner
+
+Progress:   14.06		Scanning FileLayer using BytesScanner
+
+Progress:   15.63		Scanning FileLayer using BytesScanner
+
+Progress:
+2026-05-10 03:26:57,757 [WARNING] plugin=detect_os dump=D:\MemoryDump_Lab1.raw [INFO] Detected OS: windows
+2026-05-10 03:27:09,273 [WARNING] plugin=workflow.windows dump=D:\MemoryDump_Lab1.raw [INFO] Skipping Linux symbol validation
+2026-05-10 03:27:09,273 [WARNING] plugin=workflow.windows dump=D:\MemoryDump_Lab1.raw [INFO] Using Windows automagic
+2026-05-10 03:27:28,927 [WARNING] plugin=windows.strings.Strings dump=D:\MemoryDump_Lab1.raw rc=2 stderr=usage: vol.exe windows.strings.Strings [-h] [--pid [PID ...]] --strings-file
+                                       STRINGS_FILE
+vol.exe windows.strings.Strings: error: the following arguments are required: --strings-file
+2026-05-10 03:30:30,134 [WARNING] plugin=detect_os dump=C:\Users\hazem\OneDrive\Desktop\memory.vmem [INFO] Detected OS: linux

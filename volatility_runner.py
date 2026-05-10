@@ -25,6 +25,7 @@ _VOL_SUBPROC_SEM = threading.BoundedSemaphore(max(1, min(4, int(os.environ.get("
 _ACTIVE_PROC_LOCK = threading.Lock()
 _ACTIVE_PROCESSES = []
 LINUX_VALIDATION_LOCK = threading.Lock()
+_WINDOWS_WORKFLOW_LOGGED = set()
 
 # Optional fine-grained progress (0–100) per subprocess; WorkerThread sets spans per step.
 _VOL_PROGRESS_LO = 0
@@ -58,6 +59,25 @@ def clear_volatility_output_cache():
 def clear_preflight_requirements_cache():
     """Prevent stale LRU preflight keyed to old dump paths."""
     _preflight_requirements.cache_clear()
+
+
+def clear_windows_workflow_log_cache():
+    """Reset one-shot Windows workflow INFO logs when switching dumps."""
+    global _WINDOWS_WORKFLOW_LOGGED
+    _WINDOWS_WORKFLOW_LOGGED.clear()
+
+
+def reset_volatility_session_for_new_dump():
+    """Invalidate caches and session flags when user loads another memory image."""
+    clear_volatility_output_cache()
+    clear_preflight_requirements_cache()
+    clear_windows_workflow_log_cache()
+    try:
+        from core.detection.os_detector import clear_detected_os_cache
+
+        clear_detected_os_cache()
+    except Exception:
+        pass
 
 
 def set_volatility_progress_span(lo=0, hi=100):
@@ -399,21 +419,32 @@ def _map_v3_plugin_to_v2(plugin: str) -> str:
     return key
 
 
-def run_volatility(plugin, memory_file, extra_args=None, os_type="windows"):
+def run_volatility(plugin, memory_file, extra_args=None, os_type="windows", enable_preflight=True):
     """
     Run a Volatility 3-style plugin name (e.g. windows.pslist).
     When engine is 2, the name is translated to a Vol2 plugin and executed with vol.py.
+
+    Target OS is taken from detect_target_os(memory_file) so Linux requirements never block Windows dumps.
+    The os_type argument is ignored for routing unless VOLATILITY_FORCE_OS is set (windows|linux|mac).
+    enable_preflight: set False for lightweight probes (e.g. OS detection) to skip validation layers.
     """
     extra_args = extra_args or []
     cfg = get_volatility_config()
 
-    normalized_os = (os_type or "windows").strip().lower()
+    forced = (os.environ.get("VOLATILITY_FORCE_OS", "") or "").strip().lower()
+    if forced in ("windows", "linux", "mac"):
+        normalized_os = forced
+    else:
+        from core.detection.os_detector import detect_target_os
+
+        normalized_os = detect_target_os(memory_file)
     normalized_plugin = _normalize_plugin_for_os(plugin, normalized_os)
 
-    # Defensive preflight prevents common family/symbol/layer failures.
-    preflight = _preflight_requirements(memory_file, normalized_os, normalized_plugin, cfg["engine"])
-    if preflight:
-        return _sanitize_user_error(preflight, normalized_os)
+    # Defensive preflight prevents common family/symbol/layer failures (Linux-only symbol gate).
+    if enable_preflight:
+        preflight = _preflight_requirements(memory_file, normalized_os, normalized_plugin, cfg["engine"])
+        if preflight:
+            return _sanitize_user_error(preflight, normalized_os)
 
     cache_key = _output_cache_key(memory_file, normalized_plugin, extra_args, normalized_os)
     cached = _cache_get_output(cache_key)
@@ -424,7 +455,7 @@ def run_volatility(plugin, memory_file, extra_args=None, os_type="windows"):
     if cfg["engine"] == "2":
         raw_out = _run_volatility2(normalized_plugin, memory_file, extra_args, os_type=normalized_os)
     else:
-        raw_out = _run_volatility3(normalized_plugin, memory_file, extra_args)
+        raw_out = _run_volatility3(normalized_plugin, memory_file, extra_args, os_type=normalized_os)
     out = _sanitize_user_error(raw_out, normalized_os)
     _cache_put_output(cache_key, out)
     return out
@@ -454,6 +485,15 @@ def _normalize_plugin_for_os(plugin: str, os_type: str) -> str:
     return p
 
 
+def validate_windows_environment(memory_file: str) -> str:
+    """
+    Windows/mac analysis must not depend on Linux ISF, vmlinux, or dwarf2json.
+    Volatility 3 resolves Windows PDBs via normal automagic — no extra gate here.
+    """
+    _ = memory_file
+    return ""
+
+
 @lru_cache(maxsize=32)
 def _preflight_requirements(memory_file: str, os_type: str, plugin: str, engine: str) -> str:
     """
@@ -476,19 +516,25 @@ def _preflight_requirements(memory_file: str, os_type: str, plugin: str, engine:
             f"Detected/selected OS is '{os_type}', but plugin was '{plugin}'."
         )
 
-    # Volatility 3 kernel-backed plugins need a valid translation layer and symbols.
+    # Linux: full ISF / kernel-context validation only on this branch.
     if os_type == "linux":
-        context_error = _validate_linux_context(memory_file)
-        if context_error:
-            return context_error
-    if os_type == "windows":
-        probe = _run_volatility3("windows.info.Info", memory_file, [])
-        if _is_runner_error(probe):
-            return (
-                "[volatility error] Windows memory detected/selected, but Volatility could not build the "
-                "Windows kernel context (layer_name/symbol_table_name). Ensure matching symbols are available. "
-                f"Probe output: {probe}"
-            )
+        linux_err = _validate_linux_context(memory_file)
+        if linux_err:
+            return linux_err
+
+    # Windows / mac: never run Linux validation or Linux-only automagic prerequisites here.
+    if os_type in ("windows", "mac"):
+        win_err = validate_windows_environment(memory_file)
+        if win_err:
+            return win_err
+        key = _dump_mtime_sig(memory_file)
+        if key not in _WINDOWS_WORKFLOW_LOGGED:
+            _WINDOWS_WORKFLOW_LOGGED.add(key)
+            log_volatility("workflow.windows", memory_file, "[INFO] Skipping Linux symbol validation")
+            _emit_runtime_log("[INFO] Skipping Linux symbol validation")
+            if os_type == "windows":
+                log_volatility("workflow.windows", memory_file, "[INFO] Using Windows automagic")
+                _emit_runtime_log("[INFO] Using Windows automagic")
 
     return ""
 
@@ -526,12 +572,48 @@ def _sanitize_user_error(output: str, os_type: str) -> str:
     return output
 
 
-def _run_volatility3(plugin, memory_file, extra_args):
+def _resolved_symbol_dirs_for_os(os_type: str):
+    """
+    Volatility -s paths per target OS.
+
+    For Windows/mac, exclude dedicated Linux ISF directories so Linux JSON symbols cannot
+    steer automagic or kernel layer construction on Windows memory images.
+    """
+    dirs = _resolved_symbol_dirs()
+    os_name = (os_type or "windows").strip().lower()
+    if os_name == "linux":
+        return dirs
+    filtered = []
+    for d in dirs:
+        norm = d.replace("\\", "/").lower().rstrip("/")
+        base = os.path.basename(d.rstrip(os.sep)).lower()
+        if base == "linux":
+            continue
+        if norm.endswith("/symbols/linux"):
+            continue
+        filtered.append(d)
+    return filtered
+
+
+def _vol3_symbol_dir_args_for_os(os_type: str):
+    args = []
+    for directory in _resolved_symbol_dirs_for_os(os_type):
+        args.extend(["-s", directory])
+    return args
+
+
+def _vol3_symbol_dir_args():
+    """Default Vol 3 symbol args when OS is unspecified (Windows/mac-safe)."""
+    return _vol3_symbol_dir_args_for_os("windows")
+
+
+def _run_volatility3(plugin, memory_file, extra_args, os_type="windows"):
     try:
         vol_cmd = _vol3_command()
         if not vol_cmd:
             return "[runner error] Volatility 3 executable not found. Install volatility3 or add `vol` to PATH."
-        cmd = vol_cmd + _vol3_symbol_dir_args() + ["-f", memory_file, plugin] + list(extra_args)
+        ot = (os_type or "windows").strip().lower()
+        cmd = vol_cmd + _vol3_symbol_dir_args_for_os(ot) + ["-f", memory_file, plugin] + list(extra_args)
         rc, stdout, stderr = _run_streaming_command(cmd, "vol3")
         if rc != 0 and stderr:
             err = stderr
@@ -547,13 +629,6 @@ def _run_volatility3(plugin, memory_file, extra_args):
     except Exception as exc:
         log_volatility(plugin, memory_file, f"exception={exc!r}")
         return f"[runner error] {exc}"
-
-
-def _vol3_symbol_dir_args():
-    args = []
-    for directory in _resolved_symbol_dirs():
-        args.extend(["-s", directory])
-    return args
 
 
 def _resolved_symbol_dirs():
@@ -868,7 +943,7 @@ def _validate_linux_context(memory_file: str) -> str:
 
 
 def _validate_linux_context_locked(memory_file: str) -> str:
-    banner_probe = _run_volatility3("banners.Banners", memory_file, [])
+    banner_probe = _run_volatility3("banners.Banners", memory_file, [], os_type="linux")
     kernel_version = _extract_linux_kernel_version(banner_probe)
     symbol_dirs = _resolved_symbol_dirs()
 
@@ -930,14 +1005,14 @@ def _validate_linux_context_locked(memory_file: str) -> str:
                 "Automatic recovery could not produce a validated symbol file."
             )
 
-    kernel_probe = _run_volatility3("linux.pslist.PsList", memory_file, [])
+    kernel_probe = _run_volatility3("linux.pslist.PsList", memory_file, [], os_type="linux")
     if _is_runner_error(kernel_probe):
         # Single controlled retry only.
         if not autogen_attempted:
             recovery = _auto_generate_linux_isf(kernel_version, symbol_dirs)
             _LAST_LINUX_RECOVERY[memory_file] = recovery
             autogen_attempted = True
-            kernel_probe = _run_volatility3("linux.pslist.PsList", memory_file, [])
+            kernel_probe = _run_volatility3("linux.pslist.PsList", memory_file, [], os_type="linux")
     if _is_runner_error(kernel_probe):
         joined = ", ".join(symbol_dirs)
         if no_filename_match:
@@ -956,6 +1031,14 @@ def _validate_linux_context_locked(memory_file: str) -> str:
         )
 
     return ""
+
+
+def validate_linux_symbols(memory_file: str) -> str:
+    """
+    Linux workflow only: ensure vmlinux/dwarf2json/ISF prerequisites and kernel context.
+    Must never run for Windows targets.
+    """
+    return _validate_linux_context(memory_file)
 
 
 def get_symbol_diagnostics(memory_file: str, os_type: str):
@@ -978,12 +1061,12 @@ def get_symbol_diagnostics(memory_file: str, os_type: str):
         return out
 
     if os_name == "linux":
-        banner = _run_volatility3("banners.Banners", memory_file, [])
+        banner = _run_volatility3("banners.Banners", memory_file, [], os_type="linux")
         out["kernel_version"] = _extract_linux_kernel_version(banner)
         out["vmlinux_candidates"] = _candidate_vmlinux_paths()
     out["symbol_json_files"] = _list_symbol_jsons(out["symbol_dirs"])[:50]
 
-    isfinfo = _run_volatility3("isfinfo.IsfInfo", memory_file, [])
+    isfinfo = _run_volatility3("isfinfo.IsfInfo", memory_file, [], os_type=os_name or "windows")
     if not _is_runner_error(isfinfo):
         out["isfinfo_candidates"] = _parse_isfinfo_candidates(isfinfo, os_name, out["kernel_version"])
         out["best_match_isf"] = _pick_best_isf_candidate(
@@ -995,11 +1078,15 @@ def get_symbol_diagnostics(memory_file: str, os_type: str):
     return out
 
 
-def get_backend_health():
+def get_backend_health(target_os=None):
     """
     Lightweight startup health check for deterministic troubleshooting.
+
+    Linux-only prerequisites (dwarf2json, vmlinux, ISF JSON) are reported only when
+    target_os is 'linux' so Windows analysis workflows are not polluted.
     """
     cfg = get_volatility_config()
+    os_name = (target_os or "windows").strip().lower()
     symbol_dirs = _resolved_symbol_dirs()
     symbol_jsons = _list_symbol_jsons(symbol_dirs)
     dwarf = _resolve_dwarf2json_path()
@@ -1017,6 +1104,7 @@ def get_backend_health():
         "vmlinux_candidates": vmlinux_candidates,
         "vol2_script_ready": bool(vol2_script),
         "vol2_script_path": vol2_script or "",
+        "target_os": os_name,
     }
 
     issues = []
@@ -1024,12 +1112,15 @@ def get_backend_health():
         issues.append("No active Volatility backend found.")
     if checks["vol3_ready"] and not symbol_dirs:
         issues.append("No symbol directories detected for Volatility 3.")
-    if checks["vol3_ready"] and len(symbol_jsons) == 0:
-        issues.append("No symbol JSON files found. Linux requires ISF generated from matching vmlinux.")
-    if checks["vol3_ready"] and not checks["dwarf2json_ready"]:
-        issues.append("dwarf2json not found (cannot generate Linux ISF automatically).")
-    if checks["vol3_ready"] and len(vmlinux_candidates) == 0:
-        issues.append("No vmlinux candidate found (required for Linux ISF generation).")
+    if os_name == "linux":
+        if checks["vol3_ready"] and len(symbol_jsons) == 0:
+            issues.append(
+                "No symbol JSON files found. Linux requires ISF generated from matching vmlinux."
+            )
+        if checks["vol3_ready"] and not checks["dwarf2json_ready"]:
+            issues.append("dwarf2json not found (cannot generate Linux ISF automatically).")
+        if checks["vol3_ready"] and len(vmlinux_candidates) == 0:
+            issues.append("No vmlinux candidate found (required for Linux ISF generation).")
 
     checks["status"] = "healthy" if not issues else "warning"
     checks["issues"] = issues
@@ -1138,7 +1229,7 @@ def _generate_linux_symbols_native(memory_file: str):
             reason="dump_not_found",
         )
 
-    banner = _run_volatility3("banners.Banners", memory_file, [])
+    banner = _run_volatility3("banners.Banners", memory_file, [], os_type="linux")
     kernel_version = _extract_linux_kernel_version(banner)
     if not kernel_version:
         return {
@@ -1189,7 +1280,7 @@ def _generate_linux_symbols_via_wsl(memory_file: str):
             suggestion="Load a valid memory dump path.",
             reason="dump_not_found",
         )
-    banner = _run_volatility3("banners.Banners", memory_file, [])
+    banner = _run_volatility3("banners.Banners", memory_file, [], os_type="linux")
     kernel_version = _extract_linux_kernel_version(banner)
     if not kernel_version:
         return _structured_error(
@@ -1389,10 +1480,16 @@ def _run_volatility2(plugin, memory_file, extra_args, os_type="windows"):
         return f"[runner error] {exc}"
 
 
-def run_first_available(plugins, memory_file, extra_args=None, os_type="windows"):
+def run_first_available(plugins, memory_file, extra_args=None, os_type="windows", enable_preflight=True):
     last_error = ""
     for plugin in plugins:
-        output = run_volatility(plugin, memory_file, extra_args=extra_args, os_type=os_type)
+        output = run_volatility(
+            plugin,
+            memory_file,
+            extra_args=extra_args,
+            os_type=os_type,
+            enable_preflight=enable_preflight,
+        )
         if not output.startswith("[volatility error]") and not output.startswith("[runner error]"):
             return output
         last_error = output

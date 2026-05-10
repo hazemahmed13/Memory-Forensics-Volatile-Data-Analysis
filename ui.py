@@ -42,8 +42,7 @@ from os_profile import detect_os_profile
 from report_export import build_report, export_report_json, export_report_txt, export_report_html
 from volatility_runner import (
     cancel_all_volatility_subprocesses,
-    clear_preflight_requirements_cache,
-    clear_volatility_output_cache,
+    reset_volatility_session_for_new_dump,
     generate_linux_symbols_for_dump,
     get_backend_health,
     get_environment_compatibility,
@@ -58,6 +57,7 @@ from volatility_runner import (
     volatility_any_backend_ok,
     volatility_engine_status,
 )
+from core.detection.os_detector import detect_target_os
 from forensics_logging import setup_forensics_logging
 import json
 import os
@@ -212,6 +212,11 @@ class WorkerThread(QThread):
 
     def run(self):
         interrupted = False
+        forced = (os.environ.get("VOLATILITY_FORCE_OS", "") or "").strip().lower()
+        if forced in ("windows", "linux", "mac"):
+            self.os_type = forced
+        else:
+            self.os_type = detect_target_os(self.memory_file)
         set_runtime_log_sink(self.log.emit)
         steps_total = 5 if self.task == "full" else 1
         executor = None
@@ -626,21 +631,35 @@ class MemoryForensicsApp(QWidget):
         upper_layout.addLayout(row_py2)
         upper_layout.addWidget(self.btn_vol2_imageinfo)
         upper_layout.addWidget(self.vol2_hint)
-        upper_layout.addWidget(QLabel("Linux vmlinux path (for symbol generation)"))
+        self.lbl_vmlinux_section = QLabel("Linux vmlinux path (for symbol generation)")
+        upper_layout.addWidget(self.lbl_vmlinux_section)
         row_vm = QHBoxLayout()
         row_vm.addWidget(self.vmlinux_path_edit)
         row_vm.addWidget(self.btn_browse_vmlinux)
         upper_layout.addLayout(row_vm)
-        upper_layout.addWidget(QLabel("dwarf2json path (optional)"))
+        self.lbl_dwarf_section = QLabel("dwarf2json path (optional)")
+        upper_layout.addWidget(self.lbl_dwarf_section)
         row_dwarf = QHBoxLayout()
         row_dwarf.addWidget(self.dwarf2json_path_edit)
         row_dwarf.addWidget(self.btn_browse_dwarf2json)
         upper_layout.addLayout(row_dwarf)
-        upper_layout.addWidget(QLabel("WSL executable path (optional)"))
+        self.lbl_wsl_section = QLabel("WSL executable path (optional)")
+        upper_layout.addWidget(self.lbl_wsl_section)
         row_wsl = QHBoxLayout()
         row_wsl.addWidget(self.wsl_path_edit)
         row_wsl.addWidget(self.btn_browse_wsl)
         upper_layout.addLayout(row_wsl)
+        self._linux_only_widgets = [
+            self.lbl_vmlinux_section,
+            self.vmlinux_path_edit,
+            self.btn_browse_vmlinux,
+            self.lbl_dwarf_section,
+            self.dwarf2json_path_edit,
+            self.btn_browse_dwarf2json,
+            self.lbl_wsl_section,
+            self.wsl_path_edit,
+            self.btn_browse_wsl,
+        ]
 
         analyze_sep = QFrame()
         analyze_sep.setFrameShape(QFrame.HLine)
@@ -1103,7 +1122,12 @@ class MemoryForensicsApp(QWidget):
         self._save_config()
 
     def refresh_backend_health(self):
-        health = get_backend_health()
+        eff_os = (
+            detect_target_os(self.memory_file)
+            if self.memory_file
+            else (self.os_selector.currentData() or "windows")
+        )
+        health = get_backend_health(target_os=eff_os)
         env = get_environment_compatibility()
         self.btn_generate_symbols.setEnabled(env.get("linux_symbol_generation_supported", False))
         if not env.get("linux_symbol_generation_supported", False):
@@ -1112,7 +1136,7 @@ class MemoryForensicsApp(QWidget):
             )
         else:
             self.btn_generate_symbols.setToolTip("")
-        target_os = self._target_os()
+        target_os = eff_os
         symbol_root = self._symbol_dir_for_os(target_os if target_os != "macos" else "mac")
         os_symbol_count = 0
         try:
@@ -1135,6 +1159,17 @@ class MemoryForensicsApp(QWidget):
         self.health_label.setText(
             f"Backend health: {icon} {state} | vol3={health.get('vol3_command') or 'n/a'} | {target_os} symbols={os_symbol_count} | {issue_text}"
         )
+        self._sync_linux_ui_visibility(eff_os)
+
+    def _sync_linux_ui_visibility(self, eff_os):
+        """Linux-only controls must not appear during Windows analysis."""
+        show_linux = bool(self.memory_file) and eff_os == "linux"
+        self.btn_generate_symbols.setVisible(show_linux)
+        if not show_linux:
+            self._update_linux_symbol_banner(False)
+            self.btn_load_symbol_file.setVisible(False)
+        for w in getattr(self, "_linux_only_widgets", []) or []:
+            w.setVisible(show_linux)
 
     def generate_linux_symbols(self):
         env = get_environment_compatibility()
@@ -1149,7 +1184,7 @@ class MemoryForensicsApp(QWidget):
         if not self.memory_file:
             QMessageBox.information(self, "Generate Linux Symbols", "Load a memory dump first.")
             return
-        detected_os = self._target_os()
+        detected_os = detect_target_os(self.memory_file) if self.memory_file else self._target_os()
         if detected_os != "linux":
             QMessageBox.information(
                 self,
@@ -1314,7 +1349,6 @@ class MemoryForensicsApp(QWidget):
         )
         if guessed == "linux":
             self._update_linux_symbol_banner(True, "Linux dump detected — symbol file required")
-            self.load_linux_symbol_file()
         else:
             self._update_linux_symbol_banner(False)
         self.refresh_backend_health()
@@ -1356,8 +1390,7 @@ class MemoryForensicsApp(QWidget):
             self._stop_running_analysis_thread()
             self._stop_auxiliary_workers()
             cancel_all_volatility_subprocesses()
-            clear_volatility_output_cache()
-            clear_preflight_requirements_cache()
+            reset_volatility_session_for_new_dump()
 
             self.memory_file = canonical
             self.report_dir = os.path.dirname(canonical)
@@ -1392,8 +1425,6 @@ class MemoryForensicsApp(QWidget):
 
         self._set_busy(True)
         self.thread = WorkerThread(task, self.memory_file)
-        detected_os = self._target_os()
-        self.thread.set_os_type(detected_os)
         self.thread.progress.connect(self.status.setText)
         self.thread.progress_percent.connect(self.progress_bar.setValue)
         self.thread.log.connect(self._append_log)
@@ -1504,7 +1535,7 @@ class MemoryForensicsApp(QWidget):
         if rp:
             vol_meta["vol2_script_resolved"] = rp
         vol_meta["volatility3_status"] = volatility_engine_status()
-        detected_os = self._target_os()
+        detected_os = detect_target_os(self.memory_file)
         vol_meta["symbol_diagnostics"] = get_symbol_diagnostics(
             self.memory_file, detected_os
         )
