@@ -1,0 +1,65 @@
+Memory Forensics Report
+========================================
+Generated: 2026-05-12T05:04:23.512105Z
+Memory File: D:\MemoryDump_Lab1.raw
+OS Guess: windows
+OS Confidence: high
+
+Volatility backend
+----------------------------------------
+engine: 3
+vol2_profile: 
+vol2_script: 
+vol2_python: 
+vol3_symbol_dirs: 
+volatility3_status: vol
+symbol_diagnostics: {'os_type': 'windows', 'symbol_dirs': ['C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\symbols', 'C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\symbols\\linux', 'C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\volatility3\\symbols', 'C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\volatility3\\symbols\\linux'], 'symbol_json_files': ['C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\symbols\\linux\\6.19.14+kali-amd64.json', 'C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\symbols\\linux\\6.19.14+kali-amd64.json.xz', 'C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\symbols\\linux\\Ubuntu22.04.6.5.0-41-generic.json', 'C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\volatility3\\symbols\\linux\\6.19.14+kali-amd64.json', 'C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\volatility3\\symbols\\linux\\6.19.14+kali-amd64.json.xz', 'C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\volatility3\\symbols\\linux\\kali.json', 'C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\volatility3\\symbols\\linux\\Ubuntu22.04.6.5.0-41-generic.json'], 'vmlinux_candidates': [], 'kernel_version': '', 'isfinfo_candidates': ["file:///C:/Users/hazem/anaconda3/envs/myenv/Lib/site-packages/volatility3/symbols/windows/ntkrnlmp.pdb/8B11040A5928757B11390AC78F6B6925-1.json.xz\tUnknown\t14\t1495\t34920\t247\tb'ntkrnlmp.pdb|8B11040A5928757B11390AC78F6B6925|1'", "file:///C:/Users/hazem/anaconda3/envs/myenv/Lib/site-packages/volatility3/symbols/windows/ntkrnlmp.pdb/3844DBB920174967BE7AA4A2C20430FA-2.json.xz\tUnknown\t14\t880\t18644\t114\tb'ntkrnlmp.pdb|3844DBB920174967BE7AA4A2C20430FA|2'", "file:///C:/Users/hazem/OneDrive/Desktop/Digital%20Project/volatility3/symbols/linux/Ubuntu22.04.6.5.0-41-generic.json\tUnknown\t19\t13301\t270853\t2367\tb'Linux version 6.5.0-41-generic (buildd@lcy02-amd64-120) (x86_64-linux-gnu-gcc-12 (Ubuntu 12.3.0-1ubuntu1~22.04) 12.3.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #41~22.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jun  3 11:32:55 UTC 2 (Ubuntu 6.5.0-41.41~22.04.2-generic 6.5.13)\\n\\x00'", "file:///C:/Users/hazem/anaconda3/envs/myenv/Lib/site-packages/volatility3/symbols/windows/ntkrnlmp.pdb/68A17FAF3012B7846079AEECDBE0A583-1.json.xz\tUnknown\t16\t1652\t39956\t293\tb'ntkrnlmp.pdb|68A17FAF3012B7846079AEECDBE0A583|1'"], 'best_match_isf': "file:///C:/Users/hazem/anaconda3/envs/myenv/Lib/site-packages/volatility3/symbols/windows/ntkrnlmp.pdb/3844DBB920174967BE7AA4A2C20430FA-2.json.xz\tUnknown\t14\t880\t18644\t114\tb'ntkrnlmp.pdb|3844DBB920174967BE7AA4A2C20430FA|2'", 'isfinfo_raw_excerpt': "Volatility 3 Framework 2.27.0\n\nURI\tValid\tNumber of base_types\tNumber of types\tNumber of symbols\tNumber of enums\tIdentifying information\n\nfile:///C:/Users/hazem/anaconda3/envs/myenv/Lib/site-packages/volatility3/symbols/windows/ntkrnlmp.pdb/8B11040A5928757B11390AC78F6B6925-1.json.xz\tUnknown\t14\t1495\t34920\t247\tb'ntkrnlmp.pdb|8B11040A5928757B11390AC78F6B6925|1'\nfile:///C:/Users/hazem/anaconda3/envs/myenv/Lib/site-packages/volatility3/symbols/windows/ntkrnlmp.pdb/3844DBB920174967BE7AA4A2C20430FA-2.json.xz\tUnknown\t14\t880\t18644\t114\tb'ntkrnlmp.pdb|3844DBB920174967BE7AA4A2C20430FA|2'\nfile:///C:/Users/hazem/OneDrive/Desktop/Digital%20Project/volatility3/symbols/linux/Ubuntu22.04.6.5.0-41-generic.json\tUnknown\t19\t13301\t270853\t2367\tb'Linux version 6.5.0-41-generic (buildd@lcy02-amd64-120) (x86_64-linux-gnu-gcc-12 (Ubuntu 12.3.0-1ubuntu1~22.04) 12.3.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #41~22.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jun  3 11:32:55 UTC 2 (Ubuntu 6.5.0-41.41~22.04.2-generic 6.5.13)\\n\\x00'\nfile:///C:/Users/hazem/anaconda3/envs/myenv/Lib/site-packages/volatility3/symbols/windows/ntkrnlmp.pdb/68A17FAF3012B7846079AEECDBE0A583-1.json.xz\tUnknown\t16\t1652\t39956\t293\tb'ntkrnlmp.pdb|68A17FAF3012B7846079AEECDBE0A583|1'", 'linux_recovery': {}}
+
+SECURITY NOTE
+----------------------------------------
+This report may contain credentials, key material, and host indicators.
+Handle like sensitive evidence; redact before sharing.
+
+Counts
+----------------------------------------
+processes: 0
+process_tree_nodes: 0
+threads: 0
+dll_or_module_records: 0
+suspicious_injection_lines: 11
+connections: 0
+yara_matches: 1
+
+Process coverage
+----------------------------------------
+process_records: 0
+process_tree_records: 0
+thread_records: 0
+dll_records: 0
+
+Injection / malfind (suspicious lines)
+----------------------------------------
+  816	svchost.exe	0xdf0000	0xdfffff	VadS	PAGE_EXECUTE_READWRITE	16	1	Disabled	N/A
+  472	svchost.exe	0xb30000	0xb3ffff	VadS	PAGE_EXECUTE_READWRITE	16	1	Disabled	N/A
+  948	svchost.exe	0x23f0000	0x246ffff	VadS	PAGE_EXECUTE_READWRITE	128	1	Disabled	N/A
+  948	svchost.exe	0x4c90000	0x4d8ffff	VadS	PAGE_EXECUTE_READWRITE	256	1	Disabled	N/A
+  1856	wmpnetwk.exe	0xb80000	0xb8ffff	VadS	PAGE_EXECUTE_READWRITE	16	1	Disabled	N/A
+  604	explorer.exe	0x2810000	0x281ffff	VadS	PAGE_EXECUTE_READWRITE	16	1	Disabled	N/A
+  604	explorer.exe	0x3db0000	0x3db0fff	VadS	PAGE_EXECUTE_READWRITE	1	1	Disabled	N/A
+  2424	mspaint.exe	0x2150000	0x2150fff	VadS	PAGE_EXECUTE_READWRITE	1	1	Disabled	N/A
+  … 3 more line(s)
+
+Network connection records
+----------------------------------------
+Total parsed records: 0
+
+Secrets / pattern findings (summary)
+----------------------------------------
+  possible_aes_key_hex: 20 item(s), sample: c8d617f6f8933d11581e000540386890
+  possible_password: 20 item(s), sample: password=
+software\borland\delphi\locales
+  possible_token: 20 item(s), sample: token: %#x
+
+YARA
+----------------------------------------
+- Suspicious_String

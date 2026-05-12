@@ -1,0 +1,148 @@
+{
+  "generated_at_utc": "2026-05-12T05:04:23.512105Z",
+  "memory_file": "D:\\MemoryDump_Lab1.raw",
+  "os_profile": {
+    "guessed_os": "windows",
+    "confidence": "high",
+    "scores": {
+      "windows": 0,
+      "linux": 0,
+      "mac": 0
+    }
+  },
+  "counts": {
+    "processes": 0,
+    "process_tree_nodes": 0,
+    "threads": 0,
+    "dll_or_module_records": 0,
+    "suspicious_injection_lines": 11,
+    "connections": 0,
+    "yara_matches": 1
+  },
+  "process_records": [],
+  "process_tree_records": [],
+  "thread_records": [],
+  "dll_records": [],
+  "suspicious_injection": [
+    "816\tsvchost.exe\t0xdf0000\t0xdfffff\tVadS\tPAGE_EXECUTE_READWRITE\t16\t1\tDisabled\tN/A",
+    "472\tsvchost.exe\t0xb30000\t0xb3ffff\tVadS\tPAGE_EXECUTE_READWRITE\t16\t1\tDisabled\tN/A",
+    "948\tsvchost.exe\t0x23f0000\t0x246ffff\tVadS\tPAGE_EXECUTE_READWRITE\t128\t1\tDisabled\tN/A",
+    "948\tsvchost.exe\t0x4c90000\t0x4d8ffff\tVadS\tPAGE_EXECUTE_READWRITE\t256\t1\tDisabled\tN/A",
+    "1856\twmpnetwk.exe\t0xb80000\t0xb8ffff\tVadS\tPAGE_EXECUTE_READWRITE\t16\t1\tDisabled\tN/A",
+    "604\texplorer.exe\t0x2810000\t0x281ffff\tVadS\tPAGE_EXECUTE_READWRITE\t16\t1\tDisabled\tN/A",
+    "604\texplorer.exe\t0x3db0000\t0x3db0fff\tVadS\tPAGE_EXECUTE_READWRITE\t1\t1\tDisabled\tN/A",
+    "2424\tmspaint.exe\t0x2150000\t0x2150fff\tVadS\tPAGE_EXECUTE_READWRITE\t1\t1\tDisabled\tN/A",
+    "2504\texplorer.exe\t0x3ec0000\t0x3ecffff\tVadS\tPAGE_EXECUTE_READWRITE\t16\t1\tDisabled\tN/A",
+    "2504\texplorer.exe\t0x3eb0000\t0x3eb0fff\tVadS\tPAGE_EXECUTE_READWRITE\t1\t1\tDisabled\tN/A",
+    "1720\tSearchFilterHo\t0x9b0000\t0xa2ffff\tVadS\tPAGE_EXECUTE_READWRITE\t2\t1\tDisabled\tN/A"
+  ],
+  "connection_records": [],
+  "secrets_findings": {
+    "possible_aes_key_hex": [
+      "c8d617f6f8933d11581e000540386890",
+      "638b3e61eb3edd3468c39139f57da33d",
+      "77787778777877787778777877783333",
+      "0000000000000000000000000000000000000000000000000000000000000000",
+      "7777555544443333333333333333333333333333333333333333333333333333",
+      "d41d8cd98f00b204e9800998ecf8427e",
+      "74f8ef0160a0a4d9804ad4c2c41de760",
+      "AB1C96FED05D62166C94AAB8AE8E68ADBB7D202B0967CAE80232063AA6F41C6A",
+      "88888888888888888888888888888888",
+      "AABEAA1BDB9465C2E73D2DB15321ADEB",
+      "CE7B495DC4F9C5B3025BD303D59CCF3C872F4A46BF11E24BFCC42869498C54B0",
+      "E1A0C1554258D27128136D5CCC622C32BE7D7F22B7318F9D5A921A0730E3DF38",
+      "849431920BE0B65D215F3D35E1300F5D",
+      "C8B5E3729984544DEA87745249233393E3DFB8161C15D4F2B36F210FF1ECEEF4",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "1FFB46BE0067603D0BB4489601D86141",
+      "cd50ade0e91cccf5898102b5de585668866aa78a5415a00f0c3a0d8f3adac2c4",
+      "F0BCB9AC8B0C16A2D34DE39822CD1F34",
+      "2B9C00CB53A36167EDA3CA812EECDDE0",
+      "A7D0488F63B74A8E5E368D2A62FB4A0B"
+    ],
+    "possible_password": [
+      "password=\nsoftware\\borland\\delphi\\locales",
+      "PASSWORD:IDC_WARNPROFPSWMASTER",
+      "PASSWORD:IDCANCEL",
+      "PASSWORD:IDHELP",
+      "Password=%s,",
+      "Password:\nNegChangeAccountPassword,",
+      "password: %lu",
+      "Password: StringCchCopyExW",
+      "PWD:exorcise",
+      "PWD:password",
+      "PWD:indonesia",
+      "PWD:MARS",
+      "PWD:love",
+      "PWD:sixth",
+      "PWD:53751",
+      "PWD:Saya!",
+      "PWD:xWgh9g5",
+      "PWD:xenixos",
+      "pwd=%s&fq=%s&actor=%s!#HSTR:PWS:Win32/Wowsteal.R",
+      "password=%s&passwordConfirm=%s&secretQuestionId=0&secretQuestionAnswer=test&submit.x=80&submit.y=18"
+    ],
+    "possible_token": [
+      "token: %#x",
+      "Token=31bf3856ad364e35,",
+      "Token=\nd364e35",
+      "Token: Called",
+      "Token\n==========",
+      "Token: GetTokenInformation",
+      "Token: Malloc",
+      "Token: GetTokenInformation2",
+      "Token: ConvertSidToStringSid",
+      "Token: StringCchCopy",
+      "Token: OpenProcessToken",
+      "Token: parameter",
+      "Token: Cannot",
+      "token: 0x%08x.",
+      "Token: failure",
+      "Token: Elevated",
+      "token: %ld.",
+      "Secret: 0x%08x.",
+      "token: 0x%x",
+      "Secret: CryptCreateHash(SHA1)"
+    ]
+  },
+  "yara_matches": [
+    "Suspicious_String"
+  ],
+  "volatility": {
+    "engine": "3",
+    "vol2_profile": "",
+    "vol2_script": "",
+    "vol2_python": "",
+    "vol3_symbol_dirs": "",
+    "volatility3_status": "vol",
+    "symbol_diagnostics": {
+      "os_type": "windows",
+      "symbol_dirs": [
+        "C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\symbols",
+        "C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\symbols\\linux",
+        "C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\volatility3\\symbols",
+        "C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\volatility3\\symbols\\linux"
+      ],
+      "symbol_json_files": [
+        "C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\symbols\\linux\\6.19.14+kali-amd64.json",
+        "C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\symbols\\linux\\6.19.14+kali-amd64.json.xz",
+        "C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\symbols\\linux\\Ubuntu22.04.6.5.0-41-generic.json",
+        "C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\volatility3\\symbols\\linux\\6.19.14+kali-amd64.json",
+        "C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\volatility3\\symbols\\linux\\6.19.14+kali-amd64.json.xz",
+        "C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\volatility3\\symbols\\linux\\kali.json",
+        "C:\\Users\\hazem\\OneDrive\\Desktop\\Digital Project\\volatility3\\symbols\\linux\\Ubuntu22.04.6.5.0-41-generic.json"
+      ],
+      "vmlinux_candidates": [],
+      "kernel_version": "",
+      "isfinfo_candidates": [
+        "file:///C:/Users/hazem/anaconda3/envs/myenv/Lib/site-packages/volatility3/symbols/windows/ntkrnlmp.pdb/8B11040A5928757B11390AC78F6B6925-1.json.xz\tUnknown\t14\t1495\t34920\t247\tb'ntkrnlmp.pdb|8B11040A5928757B11390AC78F6B6925|1'",
+        "file:///C:/Users/hazem/anaconda3/envs/myenv/Lib/site-packages/volatility3/symbols/windows/ntkrnlmp.pdb/3844DBB920174967BE7AA4A2C20430FA-2.json.xz\tUnknown\t14\t880\t18644\t114\tb'ntkrnlmp.pdb|3844DBB920174967BE7AA4A2C20430FA|2'",
+        "file:///C:/Users/hazem/OneDrive/Desktop/Digital%20Project/volatility3/symbols/linux/Ubuntu22.04.6.5.0-41-generic.json\tUnknown\t19\t13301\t270853\t2367\tb'Linux version 6.5.0-41-generic (buildd@lcy02-amd64-120) (x86_64-linux-gnu-gcc-12 (Ubuntu 12.3.0-1ubuntu1~22.04) 12.3.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #41~22.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jun  3 11:32:55 UTC 2 (Ubuntu 6.5.0-41.41~22.04.2-generic 6.5.13)\\n\\x00'",
+        "file:///C:/Users/hazem/anaconda3/envs/myenv/Lib/site-packages/volatility3/symbols/windows/ntkrnlmp.pdb/68A17FAF3012B7846079AEECDBE0A583-1.json.xz\tUnknown\t16\t1652\t39956\t293\tb'ntkrnlmp.pdb|68A17FAF3012B7846079AEECDBE0A583|1'"
+      ],
+      "best_match_isf": "file:///C:/Users/hazem/anaconda3/envs/myenv/Lib/site-packages/volatility3/symbols/windows/ntkrnlmp.pdb/3844DBB920174967BE7AA4A2C20430FA-2.json.xz\tUnknown\t14\t880\t18644\t114\tb'ntkrnlmp.pdb|3844DBB920174967BE7AA4A2C20430FA|2'",
+      "isfinfo_raw_excerpt": "Volatility 3 Framework 2.27.0\n\nURI\tValid\tNumber of base_types\tNumber of types\tNumber of symbols\tNumber of enums\tIdentifying information\n\nfile:///C:/Users/hazem/anaconda3/envs/myenv/Lib/site-packages/volatility3/symbols/windows/ntkrnlmp.pdb/8B11040A5928757B11390AC78F6B6925-1.json.xz\tUnknown\t14\t1495\t34920\t247\tb'ntkrnlmp.pdb|8B11040A5928757B11390AC78F6B6925|1'\nfile:///C:/Users/hazem/anaconda3/envs/myenv/Lib/site-packages/volatility3/symbols/windows/ntkrnlmp.pdb/3844DBB920174967BE7AA4A2C20430FA-2.json.xz\tUnknown\t14\t880\t18644\t114\tb'ntkrnlmp.pdb|3844DBB920174967BE7AA4A2C20430FA|2'\nfile:///C:/Users/hazem/OneDrive/Desktop/Digital%20Project/volatility3/symbols/linux/Ubuntu22.04.6.5.0-41-generic.json\tUnknown\t19\t13301\t270853\t2367\tb'Linux version 6.5.0-41-generic (buildd@lcy02-amd64-120) (x86_64-linux-gnu-gcc-12 (Ubuntu 12.3.0-1ubuntu1~22.04) 12.3.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #41~22.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jun  3 11:32:55 UTC 2 (Ubuntu 6.5.0-41.41~22.04.2-generic 6.5.13)\\n\\x00'\nfile:///C:/Users/hazem/anaconda3/envs/myenv/Lib/site-packages/volatility3/symbols/windows/ntkrnlmp.pdb/68A17FAF3012B7846079AEECDBE0A583-1.json.xz\tUnknown\t16\t1652\t39956\t293\tb'ntkrnlmp.pdb|68A17FAF3012B7846079AEECDBE0A583|1'",
+      "linux_recovery": {}
+    }
+  }
+}
