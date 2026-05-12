@@ -8,6 +8,26 @@ _SECRETS_PREVIEW_KEYS = 3
 _HTML_SECRETS_JSON_MAX = 12000
 
 
+def _normalize_yara_matches_for_report(yara_matches):
+    """Keep structured dict hits; flatten legacy yara.Match or bare rule names to JSON-safe dicts."""
+    if isinstance(yara_matches, str):
+        return yara_matches
+    if not isinstance(yara_matches, list):
+        return yara_matches
+    if not yara_matches:
+        return []
+    if isinstance(yara_matches[0], dict):
+        return list(yara_matches)
+    out = []
+    for m in yara_matches:
+        rule = getattr(m, "rule", None)
+        if rule is not None:
+            out.append({"rule": rule, "rule_file": "", "category": "legacy", "strings": []})
+        else:
+            out.append({"rule": str(m), "rule_file": "", "category": "legacy", "strings": []})
+    return out
+
+
 def _report_pipeline_debug(message: str):
     """Set FORENSICS_REPORT_PIPELINE_DEBUG=1 to trace report build/export stages in forensics_tool.log."""
     if not (os.environ.get("FORENSICS_REPORT_PIPELINE_DEBUG", "").strip()):
@@ -53,7 +73,7 @@ def build_report(
         "suspicious_injection": suspicious_injection,
         "connection_records": connection_records,
         "secrets_findings": secrets,
-        "yara_matches": [m.rule for m in yara_matches] if isinstance(yara_matches, list) else yara_matches,
+        "yara_matches": _normalize_yara_matches_for_report(yara_matches),
     }
     if volatility_meta:
         out["volatility"] = volatility_meta
@@ -164,8 +184,22 @@ def export_report_txt(report_data, out_path):
     lines.append("-" * 40)
     yara_matches = report_data.get("yara_matches", [])
     if isinstance(yara_matches, list) and yara_matches:
-        for item in yara_matches:
-            lines.append(f"- {item}")
+        if isinstance(yara_matches[0], dict):
+            for item in yara_matches[:20]:
+                lines.append("  Rule: %s" % item.get("rule", ""))
+                lines.append("  File: %s" % item.get("rule_file", ""))
+                lines.append("  Category: %s" % item.get("category", ""))
+                strs = item.get("strings") or []
+                if strs:
+                    lines.append("  Strings (sample):")
+                    for s in strs[:5]:
+                        lines.append("    - %s" % s)
+                lines.append("")
+            if len(yara_matches) > 20:
+                lines.append("  … %s more match record(s)" % (len(yara_matches) - 20))
+        else:
+            for item in yara_matches:
+                lines.append(f"- {item}")
     else:
         lines.append(str(yara_matches))
 
@@ -201,7 +235,10 @@ def export_report_html(report_data, out_path):
     ) or "(none)"
     yara_matches = report_data.get("yara_matches", [])
     if isinstance(yara_matches, list):
-        yara_text = "\n".join(yara_matches) if yara_matches else "(none)"
+        if yara_matches and isinstance(yara_matches[0], dict):
+            yara_text = json.dumps(yara_matches, indent=2, ensure_ascii=False)
+        else:
+            yara_text = "\n".join(yara_matches) if yara_matches else "(none)"
     else:
         yara_text = str(yara_matches)
 

@@ -37,7 +37,7 @@ from process_analysis import (
 )
 from network_analysis import get_connections, get_connection_records, fetch_network_volatility_output
 from secrets_analysis import detect_keys_and_credentials
-from yara_scan import format_yara_matches, scan_memory
+from yara_scan import format_yara_matches, get_yara_scan_stats, scan_memory
 from os_profile import detect_os_profile
 from report_export import build_report, export_report_json, export_report_txt, export_report_html
 from volatility_runner import (
@@ -1539,6 +1539,7 @@ class MemoryForensicsApp(QWidget):
         vol_meta["symbol_diagnostics"] = get_symbol_diagnostics(
             self.memory_file, detected_os
         )
+        vol_meta["yara_scan_stats"] = get_yara_scan_stats()
 
         report = build_report(
             memory_file=self.memory_file,

@@ -23,7 +23,7 @@ from volatility_runner import (
     volatility_any_backend_ok,
     volatility_engine_status,
 )
-from yara_scan import format_yara_matches, scan_memory
+from yara_scan import format_yara_matches, get_yara_scan_stats, scan_memory
 from forensics_logging import setup_forensics_logging
 
 
@@ -118,6 +118,7 @@ def run_cli():
             vol_meta["vol2_script_resolved"] = rp
         vol_meta["volatility3_status"] = volatility_engine_status()
         vol_meta["symbol_diagnostics"] = get_symbol_diagnostics(memory_file, os_type)
+        vol_meta["yara_scan_stats"] = get_yara_scan_stats()
 
         report = build_report(
             memory_file=memory_file,

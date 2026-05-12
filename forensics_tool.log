@@ -2912,3 +2912,9 @@ vol.exe windows.strings.Strings: error: the following arguments are required: --
 2026-05-12 08:01:49,367 [WARNING] plugin=windows.strings.Strings dump=D:\MemoryDump_Lab1.raw rc=2 stderr=usage: vol.exe windows.strings.Strings [-h] [--pid [PID ...]] --strings-file
                                        STRINGS_FILE
 vol.exe windows.strings.Strings: error: the following arguments are required: --strings-file
+2026-05-12 08:22:41,672 [WARNING] plugin=detect_os dump=D:\MemoryDump_Lab1.raw [INFO] Detected OS: windows
+2026-05-12 08:22:44,641 [WARNING] plugin=workflow.windows dump=D:\MemoryDump_Lab1.raw [INFO] Skipping Linux symbol validation
+2026-05-12 08:22:44,641 [WARNING] plugin=workflow.windows dump=D:\MemoryDump_Lab1.raw [INFO] Using Windows automagic
+2026-05-12 08:23:05,073 [WARNING] plugin=windows.strings.Strings dump=D:\MemoryDump_Lab1.raw rc=2 stderr=usage: vol.exe windows.strings.Strings [-h] [--pid [PID ...]] --strings-file
+                                       STRINGS_FILE
+vol.exe windows.strings.Strings: error: the following arguments are required: --strings-file
