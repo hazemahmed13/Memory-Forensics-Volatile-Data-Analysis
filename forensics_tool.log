@@ -2903,3 +2903,12 @@ Progress:
                                        STRINGS_FILE
 vol.exe windows.strings.Strings: error: the following arguments are required: --strings-file
 2026-05-10 03:30:30,134 [WARNING] plugin=detect_os dump=C:\Users\hazem\OneDrive\Desktop\memory.vmem [INFO] Detected OS: linux
+2026-05-11 23:24:29,123 [WARNING] plugin=detect_os dump=D:\MemoryDump_Lab2.raw [INFO] Detected OS: windows
+2026-05-11 23:26:06,941 [WARNING] plugin=workflow.windows dump=D:\MemoryDump_Lab2.raw [INFO] Skipping Linux symbol validation
+2026-05-11 23:26:06,941 [WARNING] plugin=workflow.windows dump=D:\MemoryDump_Lab2.raw [INFO] Using Windows automagic
+2026-05-12 08:01:14,502 [WARNING] plugin=detect_os dump=D:\MemoryDump_Lab1.raw [INFO] Detected OS: windows
+2026-05-12 08:01:29,012 [WARNING] plugin=workflow.windows dump=D:\MemoryDump_Lab1.raw [INFO] Skipping Linux symbol validation
+2026-05-12 08:01:29,012 [WARNING] plugin=workflow.windows dump=D:\MemoryDump_Lab1.raw [INFO] Using Windows automagic
+2026-05-12 08:01:49,367 [WARNING] plugin=windows.strings.Strings dump=D:\MemoryDump_Lab1.raw rc=2 stderr=usage: vol.exe windows.strings.Strings [-h] [--pid [PID ...]] --strings-file
+                                       STRINGS_FILE
+vol.exe windows.strings.Strings: error: the following arguments are required: --strings-file

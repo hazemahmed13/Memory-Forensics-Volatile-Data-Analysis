@@ -1,9 +1,23 @@
 import html
 import json
+import os
 from datetime import datetime
 
 _TXT_SAMPLE_LIMIT = 8
 _SECRETS_PREVIEW_KEYS = 3
+_HTML_SECRETS_JSON_MAX = 12000
+
+
+def _report_pipeline_debug(message: str):
+    """Set FORENSICS_REPORT_PIPELINE_DEBUG=1 to trace report build/export stages in forensics_tool.log."""
+    if not (os.environ.get("FORENSICS_REPORT_PIPELINE_DEBUG", "").strip()):
+        return
+    try:
+        from forensics_logging import setup_forensics_logging
+
+        setup_forensics_logging().info("report_pipeline %s", message)
+    except Exception:
+        pass
 
 
 def build_report(
@@ -43,12 +57,18 @@ def build_report(
     }
     if volatility_meta:
         out["volatility"] = volatility_meta
+    _report_pipeline_debug(
+        "build_report done keys=%s yara_type=%s"
+        % (list(out.keys()), type(out.get("yara_matches")).__name__)
+    )
     return out
 
 
 def export_report_json(report_data, out_path):
-    with open(out_path, "w", encoding="utf-8") as fp:
-        json.dump(report_data, fp, indent=2)
+    _report_pipeline_debug("export_report_json start path=%r" % (out_path,))
+    with open(out_path, "w", encoding="utf-8", newline="\n", errors="replace") as fp:
+        json.dump(report_data, fp, indent=2, ensure_ascii=False)
+    _report_pipeline_debug("export_report_json done bytes=%s" % os.path.getsize(out_path))
 
 
 def _format_record_rows(records, limit=_TXT_SAMPLE_LIMIT):
@@ -149,8 +169,10 @@ def export_report_txt(report_data, out_path):
     else:
         lines.append(str(yara_matches))
 
-    with open(out_path, "w", encoding="utf-8") as fp:
+    _report_pipeline_debug("export_report_txt start path=%r lines=%s" % (out_path, len(lines)))
+    with open(out_path, "w", encoding="utf-8", newline="\n", errors="replace") as fp:
         fp.write("\n".join(lines))
+    _report_pipeline_debug("export_report_txt done bytes=%s" % os.path.getsize(out_path))
 
 
 def export_report_html(report_data, out_path):
@@ -184,17 +206,23 @@ def export_report_html(report_data, out_path):
         yara_text = str(yara_matches)
 
     secrets = report_data.get("secrets_findings") or {}
-    secrets_json = json.dumps(secrets, indent=2) if secrets else "{}"
-    if len(secrets_json) > 12000:
-        secrets_json = secrets_json[:12000] + "\n… (truncated)"
-    secrets_esc = html.escape(secrets_json)
+    secrets_json = json.dumps(secrets, indent=2, ensure_ascii=False) if secrets else "{}"
+    # Never slice raw JSON: a byte/char cut mid-structure yields invalid JSON inside HTML (looks "corrupted").
+    if len(secrets_json) > _HTML_SECRETS_JSON_MAX:
+        secrets_esc = html.escape(
+            "(Secrets JSON omitted in HTML preview: payload exceeds %s characters. "
+            "Open the exported *_forensics_report.json for the complete, valid secrets_findings object.)"
+            % _HTML_SECRETS_JSON_MAX
+        )
+    else:
+        secrets_esc = html.escape(secrets_json)
 
     vm = report_data.get("volatility")
     vol_block = ""
     if vm:
         vol_block = (
             "<h2>Volatility backend</h2><pre>"
-            + html.escape(json.dumps(vm, indent=2))
+            + html.escape(json.dumps(vm, indent=2, ensure_ascii=False))
             + "</pre>"
         )
 
@@ -226,5 +254,7 @@ pre {{ background: #f6f6f6; padding: 0.75rem; overflow-x: auto; font-size: 0.85r
 {pre_block("YARA", yara_text)}
 </body>
 </html>"""
-    with open(out_path, "w", encoding="utf-8") as fp:
+    _report_pipeline_debug("export_report_html start path=%r doc_chars=%s" % (out_path, len(doc)))
+    with open(out_path, "w", encoding="utf-8", newline="\n", errors="replace") as fp:
         fp.write(doc)
+    _report_pipeline_debug("export_report_html done bytes=%s" % os.path.getsize(out_path))
